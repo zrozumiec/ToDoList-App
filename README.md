@@ -20,21 +20,22 @@ Students may use a Domain model from their previous assignment from Module #10 a
 The functionality of the TODO List application is similar to the Microsofts's To Do application https://www.microsoft.com/ru-ru/microsoft-365/microsoft-to-do-list-app?rtc=1 
 You are encouraged to briefly go through the application to figure out what functionality your application should provide to the users. Don’t try to copy the design of the above To Do application, try to create your own design and functionality
 
-The project solution should containg at least projects:
+The project solution should contain at least projects:
 
 1. a class library project which contains classes that represent a domain model for the TODO List application;
-2. a client ASP.NET Core MVC  application that end users can use to work with the TODO application;
+2. a client ASP.NET Core MVC  application that end users can use to interact with the TODO application;
 3. a unit test project that provides unit tests for the TODO List class library
 
 
 
-User of TODO List application should be able to:
+Users of TODO List application should be able to:
 
 - create multiple TODO lists  (mandatory option)
-- show all TODO lists at the list view UI (mandatory option)
+- show all TODO lists at the list view (mandatory option)
 - remove/hide a list from the  list view (optional option)
 - add TODO entries to the TODO list; (mandatory option)
-- user should be able to show/hide completed TODO items in a list (optional option)
+- copy existing todo list (optional)
+- user should be able to show/hide completed items in a TODO list (optional option)
 - the user can decide whether to hide the  TODO list  from the list view  or remove it completely from the TODO list database; (optional option)
 - each TODO item should as a minimun have: a title, a description, a due date,a creation date, assignet to (optional requirements)
 - add additonal fields to TODO items based on your design ideas to increase the available functionality; (optional requirement)
