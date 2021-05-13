@@ -6,7 +6,7 @@
 
 **Purpose**
 
-The purpose of the task is to get a practical experience in creating web applications using previous knowledge from C# Basics and ASP.NET  Core courses. This task will give students a practical experience in creating domain models of real applications, developing Unit tests and  implementing a user interface and the presentation layer of web applications.  ASP.NET Core MVC framework is recommended to use for implementing the presentation layer of the project
+The purpose of the task is to get a practical experience in creating web applications using previous knowledge from C# Basics and ASP.NET  Core courses. This task will give students a practical experience in creating domain models of real applications, developing Unit tests and  implementing a user interface and the presentation layer of web applications using .NET Core and ASP.Core.  
 
 Estimated time to complete: 20 hours. 
 Task status: mandatory / manually-checked.
