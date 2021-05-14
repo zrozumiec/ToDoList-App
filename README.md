@@ -33,6 +33,7 @@ Users of TODO List application should be able to:
 
 - create multiple TODO lists  (mandatory)
 - show all TODO lists at the list view (mandatory )
+
 ![](images/ToDo-Lists.png) 
 - remove/hide a list from the  list view (optional  )
 - add TODO entries to the TODO list; (mandatory  )
