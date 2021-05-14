@@ -31,9 +31,13 @@ The project solution should contain at least projects:
 Users of TODO List application should be able to:
 
 - create multiple TODO lists  (mandatory option)
-- show all TODO lists at the list view (mandatory option)
+ - show all TODO lists at the list view (mandatory option)
+ a dasboard with all todo lists may look like:
+ ![](images/ToDo-Lists.png) 
 - remove/hide a list from the  list view (optional option)
 - add TODO entries to the TODO list; (mandatory option)
+a sample design of TODO list may look like:
+![](images/ToDo-List-Items.png) 
 - copy existing todo list (optional)
 - user should be able to show/hide completed items in a TODO list (optional option)
 - the user can decide whether to hide the  TODO list  from the list view  or remove it completely from the TODO list database; (optional option)
