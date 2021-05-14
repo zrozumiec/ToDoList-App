@@ -32,7 +32,7 @@ The task solution should be multiproject solution containing at least 3 VS proje
 Users of TODO List application should be able to:
 
 - create multiple TODO lists  (mandatory)
- - show all TODO lists at the list view (mandatory)
+- show all TODO lists at the list view (mandatory)
  a dasboard with all todo lists may look like:
  ![](images/ToDo-Lists.png) 
 - remove/hide a list from the  list view (optional  )
