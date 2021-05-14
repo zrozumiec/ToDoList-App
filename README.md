@@ -9,8 +9,9 @@
 The purpose of the task is to get a practical experience in creating web applications using previous knowledge from C# Basics and ASP.NET  Core courses. This task will give students a practical experience in creating domain models of real applications, developing Unit tests and  implementing a user interface and the presentation layer of web applications using .NET Core and ASP.Core.  
 
 Estimated time to complete: 20 hours. 
-Task status: mandatory / manually-checked.
-Success criteria: All mandatory options implemented
+Task status: mandatory / manually-checked
+
+**Success criteria**: All mandatory options implemented
 
 **Requirements**
 
@@ -30,30 +31,30 @@ The task solution should be multiproject solution containing at least 3 VS proje
 
 Users of TODO List application should be able to:
 
-- create multiple TODO lists  (mandatory option)
- - show all TODO lists at the list view (mandatory option)
+- create multiple TODO lists  (mandatory)
+ - show all TODO lists at the list view (mandatory)
  a dasboard with all todo lists may look like:
  ![](images/ToDo-Lists.png) 
-- remove/hide a list from the  list view (optional option)
-- add TODO entries to the TODO list; (mandatory option)
+- remove/hide a list from the  list view (optional  )
+- add TODO entries to the TODO list; (mandatory  )
 a sample design of TODO list may look like:
 ![](images/ToDo-List-Items.png) 
 - copy existing todo list (optional)
-- user should be able to show/hide completed items in a TODO list (optional option)
-- the user can decide whether to hide the  TODO list  from the list view  or remove it completely from the TODO list database; (optional option)
+- user should be able to show/hide completed items in a TODO list (optional  )
+- the user can decide whether to hide the  TODO list  from the list view  or remove it completely from the TODO list database; (optional  )
 - each TODO item should as a minimun have: a title, a description, a due date,a creation date, assignet to (optional requirements)
-- add additonal fields to TODO items based on your design ideas to increase the available functionality; (optional requirement)
-- the user should  be able to modify a TODO list or a TODO entry;(mandatory option)
-- user can set his TODO items  to completed,in progress, not started status;(mandatory option)
+- add additonal fields to TODO items based on your design ideas to increase the available functionality; (optional    )
+- the user should  be able to modify a TODO list or a TODO entry;(mandatory)
+- user can set his TODO items  to completed,in progress, not started status;(mandatory)
 _by default newly created TODO entry is in not started status;_ (optional,  may choose better design)
 
-- all the TODO List application data is stored in the database; (mandatory option)
+- all the TODO List application data is stored in the database; (mandatory )
 - student may use EF Core framework or other ORMs to save and read data from the database; (optional)
-- add Unit test project and  unit tests to test the domain model and asp.net core mvc ui project; (mandatory option)
+- add Unit test project and  unit tests to test the domain model and asp.net core mvc ui project; (mandatory )
 
 **Deployment requirements:**
 
-- commit and push your latest version to gitLab and demonstrate live application from your computer to your mentor (mandatory)
+- commit and push your latest working version to the gitLab and demonstrate live application from your computer to your mentor (mandatory)
 - create a free user account at Microsoft Azure (optional)
 - deploy yor project to MS Azure cloud and provide URL to your mentor (optional)
 
