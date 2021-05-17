@@ -27,7 +27,9 @@ The task solution should be multiproject solution containing at least 3 VS proje
 2. a client ASP.NET Core MVC  application that end users can use to interact with the TODO application;
 3. a unit test project that provides unit tests for the TODO List class library
 
+You solution may look like:
 
+![](images/todo-solition.png) 
 
 Users of TODO List application should be able to:
 
