@@ -33,22 +33,33 @@ You solution may look like:
 
 Users of TODO List application should be able to:
 
-- create multiple TODO lists  (mandatory)
-- show all TODO lists at the list view (mandatory )
+
+
+| Use case # | Functionality | Mandatory/Optional | Priority |
+| ------ | ------ |------ |------ |
+ |1 | View all TODO lists at the application’s list view  |M |1 |
+| 2 | Create new TODO lists  |M |1 |
+| 3 | Add TODO entries (items) to a TODO list  |M |1 |
+| 4 | Enter a title, a description, a due date,a creation date to each TODO item |M |1 |
+| 5 | Change TODO items status to: Completed, In Progress, Not Started     |M |1 |
+| 6 | Modify a TODO list or a TODO entry   |M |1 |
+| 7 | Store all TODO List application data in database |M |1 |
+| 8 | Show/hide completed items in a TODO list    |O |2 |
+| 9 | Copy existing todo list     |O |2 |
+| 10 |Remove/hide a list from the  application’s list view     |O |2 |
+| 11 |Add additonal fields/notes to TODO items |O |2 |
+| 12 |Hide a TODO list from the list view or remove it completely from the TODO list database|O |2 |
+| 13 | See the TODO items that are due today |O |2 |
+| 14 | Create a reminder for the TODO item  |O |2 |
+ 
+A sample design of the UI may look like:
 
 ![](images/ToDo-Lists.png) 
-- remove/hide a list from the  list view (optional  )
-- add TODO entries to the TODO list; (mandatory  )
-a sample design of TODO list may look like:
+ 
+- add TODO entries
+ 
 ![](images/ToDo-List-Items.png) 
-- copy existing todo list (optional)
-- user should be able to show/hide completed items in a TODO list (optional  )
-- the user can decide whether to hide the  TODO list  from the list view  or remove it completely from the TODO list database; (optional  )
-- each TODO item should as a minimun have: a title, a description, a due date,a creation date, assignet to (optional requirements)
-- add additonal fields to TODO items based on your design ideas to increase the available functionality; (optional    )
-- the user should  be able to modify a TODO list or a TODO entry;(mandatory)
-- user can set his TODO items  to completed,in progress, not started status;(mandatory)
-_by default newly created TODO entry is in not started status;_ (optional,  may choose better design)
+ 
 
 - all the TODO List application data is stored in the database; (mandatory )
 - student may use EF Core framework or other ORMs to save and read data from the database; (optional)
