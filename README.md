@@ -21,7 +21,9 @@ Students may use a Domain model from their previous assignment from Module #10 a
 The functionality of the TODO List application might be similar to the Microsofts's To Do application https://www.microsoft.com/ru-ru/microsoft-365/microsoft-to-do-list-app?rtc=1 
 You are encouraged to briefly look through the application to figure out what  your application could provide to the users. Don’t try to copy the design of the above To Do application, try to create your own design and functionality
 
-The task solution should be multiproject solution containing at least 3 VS projects:
+**The Project  Solution requirements**
+
+The solution should be multiproject solution containing at least 3 VS projects:
 
 1. a class library project which contains classes that represent a domain model for the TODO List application;
 2. a client ASP.NET Core MVC  application that end users can use to interact with the TODO application;
@@ -60,10 +62,11 @@ A sample design of the UI may look like:
  
 ![](images/ToDo-List-Items.png) 
  
+**The project architecture  requirements: **
 
-- all the TODO List application data is stored in the database; (mandatory )
-- student may use EF Core framework or other ORMs to save and read data from the database; (optional)
-- add Unit test project and  unit tests to test the domain model and asp.net core mvc ui project; (mandatory )
+- All the TODO List application data is stored in the database; (mandatory )
+- EF Core framework or other ORMs to save and read data from the database can be used;  
+- Unit test project and  unit tests have to be created for the domain model ; (mandatory )
 
 **Deployment requirements:**
 
