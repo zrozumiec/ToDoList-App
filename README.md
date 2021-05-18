@@ -29,7 +29,7 @@ The solution should be multiproject solution containing at least 3 VS projects:
 2. a client ASP.NET Core MVC  application that end users can use to interact with the TODO application;
 3. a unit test project that provides unit tests for the TODO List class library
 
-You solution may look like:
+The VS solution may look like:
 
 ![](images/todo-solition.png) 
 
