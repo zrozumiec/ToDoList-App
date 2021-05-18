@@ -11,7 +11,7 @@ The purpose of the task is to get a practical experience in creating web applica
 Estimated time to complete: 20 hours. 
 Task status: mandatory / manually-checked
 
-**Success criteria**: All mandatory options implemented
+**Success criteria**: All mandatory options implemented, code review criteria met
 
 **Requirements**
 
