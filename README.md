@@ -1,4 +1,4 @@
-# aspnet-core-final-project
+# ASP.NET Core Final Project
 
  **A project that students must complete at the end of their studies in order to receive a certificate of successful completion of the course** 
 
