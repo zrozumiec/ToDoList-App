@@ -1,58 +1,53 @@
 # ASP.NET Core Final Project
 
- **A project that students must complete at the end of their studies in order to receive a certificate of successful completion of the course** 
+ **A project that students must complete to receive a certificate of successful completion of the track** 
 
 **TODO List Application**
 
 **Purpose**
 
-The purpose of the task is to get a practical experience in creating web applications using previous knowledge from C# Basics and ASP.NET  Core courses. This task will give students a practical experience in creating domain models of real applications, developing Unit tests and  implementing a user interface and the presentation layer of web applications using .NET Core and ASP.Core.  
+The project will allow you to solidify your proficiency in C# and ASP.NET Core. As you design your web application, you will get a practical experience of creating domain models, developing unit tests, and implementing a user interface and the presentation layer using .NET Core and ASP.NET Core. When you complete this project, you will have a working web application showpiece to include in your portfolio.
 
-Estimated time to complete: 20 hours. 
-Task status: mandatory / manually-checked
+Estimated time to complete: 40 hours. 
 
-**Success criteria**: All mandatory options implemented, code review criteria met
 
 **Requirements**
 
- Create a “TODO List” web application that allows users to manage personal activities.
-The web application should work correctly for Desk top and mobile clients.
-Students may use a Domain model from their previous assignment from Module #10 as a starting point for their design.  However, this application should be more functional and provide users with a real possibility to be used in their daily life.
-The functionality of the TODO List application might be similar to the Microsofts's To Do application https://www.microsoft.com/ru-ru/microsoft-365/microsoft-to-do-list-app?rtc=1 
-You are encouraged to briefly look through the application to figure out what  your application could provide to the users. Don’t try to copy the design of the above To Do application, try to create your own design and functionality
+The goal of the project is to create a To Do List web application that allows users to manage their personal activities by creating to do lists. The web application should work correctly on a desktop computer and a mobile phone. You may use the domain model from the Week #10 assignment as a starting point for your design. However, this application should be more functional.  
 
-**The Project  Solution requirements**
+You are encouraged to check out [this application](https://www.microsoft.com/ru-ru/microsoft-365/microsoft-to-do-list-app?rtc=1 ) as an example in order to get a general understanding of the desired result. However, please do not copy the design of the Microsoft application. Try to create your own design and functionality. 
 
-The solution should be multiproject solution containing at least 3 VS projects:
+**Project  Solution Requirements**
 
-1. a class library project which contains classes that represent a domain model for the TODO List application;
-2. a client ASP.NET Core MVC  application that end users can use to interact with the TODO application;
-3. a unit test project that provides unit tests for the TODO List class library
+The solution should be multi-project containing at least three VS projects:
 
-The VS solution may look like:
+1. A class library project which contains classes that represent a domain model for the To Do List application.
+2. A client ASP.NET Core MVC application that end users can use to interact with the To Do List application.
+3. A unit test project that provides unit tests for the To Do List class library.
+
+The VS solution may look as follows:
 
 ![](images/todo-solition.png) 
 
 Users of TODO List application should be able to:
 
 
-
 | Use case # | Functionality | Mandatory/Optional | Priority |
 | ------ | ------ |------ |------ |
- |1 | View all TODO lists at the application’s list view  |M |1 |
-| 2 | Create new TODO lists  |M |1 |
-| 3 | Add TODO entries (items) to a TODO list  |M |1 |
-| 4 | Enter a title, a description, a due date,a creation date to each TODO item |M |1 |
-| 5 | Change TODO items status to: Completed, In Progress, Not Started     |M |1 |
-| 6 | Modify a TODO list or a TODO entry   |M |1 |
-| 7 | Store all TODO List application data in database |M |1 |
-| 8 | Show/hide completed items in a TODO list    |O |2 |
-| 9 | Copy existing todo list     |O |2 |
-| 10 |Remove/hide a list from the  application’s list view     |O |2 |
-| 11 |Add additonal fields/notes to TODO items |O |2 |
-| 12 |Hide a TODO list from the list view or remove it completely from the TODO list database|O |2 |
-| 13 | See the TODO items that are due today |O |2 |
-| 14 | Create a reminder for the TODO item  |O |2 |
+ |1 | View all To Do lists at the application’s list view  |M |1 |
+| 2 | Create new To Do lists  |M |1 |
+| 3 | Add To Do entries (items) to a To Do list  |M |1 |
+| 4 | Enter a title, a description, a due date,a creation date to each To Do item |M |1 |
+| 5 | Change To Do items status to: Completed, In Progress, Not Started     |M |1 |
+| 6 | Modify a To Do list or a To Do entry   |M |1 |
+| 7 | Store all To Do List application data in a database |M |1 |
+| 8 | Show/hide completed items in a To Do list    |O |2 |
+| 9 | Copy existing To Do list     |O |2 |
+| 10 |Remove/hide a list from the application’s list view     |O |2 |
+| 11 |Add additonal fields/notes to To Do items |O |2 |
+| 12 |Hide a To Do list from the list view or remove it completely from the To Do list database|O |2 |
+| 13 | See the To Do items that are due today |O |2 |
+| 14 | Create a reminder for a To Do item  |O |2 |
  
 A sample design of the UI may look like:
 
@@ -62,16 +57,14 @@ A sample design of the UI may look like:
  
 ![](images/ToDo-List-Items.png) 
  
-**The project architecture  requirements: **
+**Project Architecture  Requirements**
 
-- All the TODO List application data is stored in the database; (mandatory )
-- EF Core framework or other ORMs to save and read data from the database can be used;  
-- Unit test project and  unit tests have to be created for the domain model ; (mandatory )
+- All the To Do List application data is stored in the database. 
+- The EF Core or other ORMs to save and read data from the database can be used.  
+- The unit test project and unit tests have to be created for the domain model. (mandatory )
 
 **Deployment requirements:**
 
-- commit and push your latest working version to the gitLab and demonstrate live application from your computer to your mentor (mandatory)
-- create a free user account at Microsoft Azure (optional)
-- deploy yor project to MS Azure cloud and provide URL to your mentor (optional)
+- Commit and push your latest working version to GitLab to present the application to your mentor in live mode by sharing your screen. Create a free user account at Microsoft Azure, deploy your project to the MS Azure Cloud, and provide a URL to your mentor (optional). 
 
- **You may use this application as your portfolio project, so it is highly recommneded to deply it to Azure cloud **
+ **You may use this application as your portfolio project, so it is highly recommneded to deply it to Azure cloud**
