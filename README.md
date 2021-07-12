@@ -10,6 +10,7 @@ The project will allow you to solidify your proficiency in C# and ASP.NET Core. 
 
 Estimated time to complete: 40 hours. 
 
+## Stage 1. Creating an App Prototype   
 
 **Requirements**
 
