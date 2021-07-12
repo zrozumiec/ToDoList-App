@@ -67,10 +67,6 @@ You are also offered to create your UI design for the web application. Here is a
 
 ![](images/Net17_Pic2_small_3x.png) 
  
-- add TODO entries
- 
-![](images/ToDo-List-Items.png) 
- 
 ## Stage 3. Presenting the Final Solution 
 
 After you are ready with your solution, prepare for a live presentation.  
