@@ -1,4 +1,3 @@
-
 ## Project Description   
 
 The project will allow you to solidify your proficiency in C# and ASP.NET Core. As you design your web application, you will get a practical experience of creating domain models, developing unit tests, and implementing a user interface and the presentation layer using .NET Core and ASP.NET Core. When you complete this project, you will have a working web application showpiece to include in your portfolio.
