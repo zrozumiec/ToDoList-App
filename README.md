@@ -65,7 +65,7 @@ At this stage, you are expected to create the functionalities that will enable y
 
 You are also offered to create your UI design for the web application. Here is a reference UI design: 
 
-![](Net17_Pic2_small_3x.png) 
+![](images/Net17_Pic2_small_3x.png) 
  
 - add TODO entries
  
