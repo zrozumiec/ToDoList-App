@@ -15,6 +15,6 @@ namespace ToDoApplication.Domain.Models
         /// <summary>
         /// Gets or sets collections of associated task.
         /// </summary>
-        public virtual ICollection<Task>? Tasks { get; set; }
+        public virtual ICollection<ToDoTask>? Tasks { get; set; }
     }
 }

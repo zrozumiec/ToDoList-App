@@ -20,6 +20,6 @@ namespace ToDoApplication.Domain.Models
         /// <summary>
         /// Gets or sets associated task.
         /// </summary>
-        public virtual Task ToDoTask { get; set; } = new Task();
+        public virtual ToDoTask ToDoTask { get; set; } = new ToDoTask();
     }
 }

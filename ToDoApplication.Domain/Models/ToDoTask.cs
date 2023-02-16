@@ -5,7 +5,7 @@ namespace ToDoApplication.Domain.Models
     /// <summary>
     /// Class represents user task.
     /// </summary>
-    public class Task : BaseEntity
+    public class ToDoTask : BaseEntity
     {
         /// <summary>
         /// Gets or sets task creation date.
