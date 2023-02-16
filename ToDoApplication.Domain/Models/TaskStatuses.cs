@@ -5,7 +5,7 @@ namespace ToDoApplication.Domain.Models
     /// <summary>
     /// Class represents task status.
     /// </summary>
-    public class TaskStatus : BaseEntity
+    public class TaskStatuses : BaseEntity
     {
         /// <summary>
         /// Gets or sets task status name.

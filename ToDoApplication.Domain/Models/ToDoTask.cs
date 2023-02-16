@@ -70,7 +70,7 @@ namespace ToDoApplication.Domain.Models
         /// <summary>
         /// Gets or sets associated task status.
         /// </summary>
-        public virtual TaskStatus Status { get; set; } = new TaskStatus();
+        public virtual TaskStatuses Status { get; set; } = new TaskStatuses();
 
         /// <summary>
         /// Gets or sets associated task category Id.
