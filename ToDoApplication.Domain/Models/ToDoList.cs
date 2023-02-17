@@ -30,7 +30,7 @@ namespace ToDoApplication.Domain.Models
         /// <summary>
         /// Gets or sets associated user id.
         /// </summary>
-        public int UserId { get; set; }
+        public string UserId { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets associated user.
