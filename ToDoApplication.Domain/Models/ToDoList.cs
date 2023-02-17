@@ -40,6 +40,6 @@ namespace ToDoApplication.Domain.Models
         /// <summary>
         /// Gets or sets collection of tasks connected to list.
         /// </summary>
-        public virtual ICollection<ToDoTask>? Tasks { get; set; }
+        public virtual ICollection<ToDoTask> Tasks { get; set; } = new List<ToDoTask>();
     }
 }

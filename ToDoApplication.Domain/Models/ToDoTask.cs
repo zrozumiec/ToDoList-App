@@ -95,6 +95,6 @@ namespace ToDoApplication.Domain.Models
         /// <summary>
         /// Gets or sets associated collection of task notes.
         /// </summary>
-        public virtual ICollection<TaskNotes>? Notes { get; set; }
+        public virtual ICollection<TaskNotes> Notes { get; set; } = new List<TaskNotes>();
     }
 }

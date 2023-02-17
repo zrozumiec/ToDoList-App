@@ -10,6 +10,6 @@ namespace ToDoApplication.Domain.Models
         /// <summary>
         /// Gets or sets user ToDoLists.
         /// </summary>
-        public virtual ICollection<ToDoList>? ToDoLists { get; set; }
+        public virtual ICollection<ToDoList> ToDoLists { get; set; } = new List<ToDoList>();
     }
 }
