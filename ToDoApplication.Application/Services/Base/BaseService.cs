@@ -77,6 +77,13 @@ namespace ToDoApplication.Application.Services.Base
                 throw new ArgumentException("Item with given id does not exist in database.", nameof(id));
             }
 
+            var itemInDatabaseWithSameName = this.GetAll().FirstOrDefault(x => x.Name.ToLower() == itemDto.Name.ToLower());
+
+            if (itemInDatabaseWithSameName is not null)
+            {
+                throw new ArgumentException("Item with given name already exist in database.", nameof(id));
+            }
+
             return this.UpdateInternalAsync(id, itemDto);
         }
 
