@@ -52,7 +52,7 @@ namespace ToDoApplication.Application.Services.Base
         /// <inheritdoc/>
         public Task<int> DeleteAsync(int id)
         {
-            var itemInDatabaseDto = this.GetByIdInternalAsync(id);
+            var itemInDatabaseDto = this.GetByIdInternalAsync(id).Result;
 
             if (itemInDatabaseDto is null)
             {
@@ -70,7 +70,7 @@ namespace ToDoApplication.Application.Services.Base
                 throw new ArgumentNullException(nameof(itemDto), "Item can not be null.");
             }
 
-            var itemInDatabase = this.GetByIdInternalAsync(id);
+            var itemInDatabase = this.GetByIdInternalAsync(id).Result;
 
             if (itemInDatabase is null)
             {
@@ -92,7 +92,7 @@ namespace ToDoApplication.Application.Services.Base
         {
             var itemDto = this.GetByIdInternalAsync(id);
 
-            if (itemDto is null)
+            if (itemDto.Result is null)
             {
                 throw new ArgumentException("Item with given id does not exist in database.", nameof(id));
             }

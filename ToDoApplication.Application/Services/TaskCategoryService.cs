@@ -31,7 +31,7 @@ namespace ToDoApplication.Application.Services
                 throw new ArgumentNullException(nameof(taskCategoryDto), "Task category can not be null.");
             }
 
-            var taskCategoryInDatabase = this.GetByNameInternalAsync(taskCategoryDto.Name);
+            var taskCategoryInDatabase = this.GetByNameInternalAsync(taskCategoryDto.Name).Result;
 
             if (taskCategoryInDatabase is not null)
             {
