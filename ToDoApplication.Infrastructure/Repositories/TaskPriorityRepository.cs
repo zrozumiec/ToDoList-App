@@ -33,5 +33,11 @@ namespace ToDoApplication.Infrastructure.Repositories
 
             return taskPriorityInDatabase.Id;
         }
+
+        /// <inheritdoc/>
+        public async Task<TaskPriority> GetByNameAsync(string name)
+        {
+            return await this.DbSet.FindAsync(name);
+        }
     }
 }

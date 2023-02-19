@@ -34,5 +34,11 @@ namespace ToDoApplication.Infrastructure.Repositories
 
             return taskStatusInDatabase.Id;
         }
+
+        /// <inheritdoc/>
+        public async Task<TaskStatuses> GetByNameAsync(string name)
+        {
+            return await this.DbSet.FindAsync(name);
+        }
     }
 }
