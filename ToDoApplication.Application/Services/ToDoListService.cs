@@ -31,7 +31,7 @@ namespace ToDoApplication.Application.Services
                 throw new ArgumentNullException(nameof(toDoListDto), "List can not be null.");
             }
 
-            var taskStatusesInDatabase = this.GetByNameInternalAsync(toDoListDto.Tile);
+            var taskStatusesInDatabase = this.GetByNameInternalAsync(toDoListDto.Name);
 
             if (taskStatusesInDatabase is not null)
             {
