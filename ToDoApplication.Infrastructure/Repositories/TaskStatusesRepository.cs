@@ -38,7 +38,7 @@ namespace ToDoApplication.Infrastructure.Repositories
         /// <inheritdoc/>
         public async Task<TaskStatuses> GetByNameAsync(string name)
         {
-            return await this.DbSet.FindAsync(name);
+            return await this.DbSet.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
         }
     }
 }
