@@ -15,6 +15,7 @@ namespace ToDoApplication.Application.Mapper
         public ToDoTaskMappingProfile()
         {
             this.CreateMap<ToDoTask, ToDoTaskDto>()
+                .ForMember(m => m.Name, d => d.MapFrom(s => s.Tile))
                 .ReverseMap();
         }
     }

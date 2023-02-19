@@ -15,6 +15,7 @@ namespace ToDoApplication.Application.Mapper
         public ToDoListMappingProfile()
         {
             this.CreateMap<ToDoList, ToDoListDto>()
+                .ForMember(m => m.Name, d => d.MapFrom(s => s.Tile))
                 .ForMember(m => m.NumberOfTasks, d => d.MapFrom(s => s.Tasks.Count))
                 .ReverseMap();
         }
