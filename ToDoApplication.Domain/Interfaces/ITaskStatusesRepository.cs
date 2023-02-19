@@ -15,5 +15,12 @@ namespace ToDoApplication.Domain.Interfaces
         /// <param name="newTaskStatus">New task statuses data.</param>
         /// <returns>Updated task statuses id.</returns>
         new Task<int> UpdateAsync(int id, TaskStatuses newTaskStatus);
+
+        /// <summary>
+        /// Returns task status with given name.
+        /// </summary>
+        /// <param name="name">Task status name.</param>
+        /// <returns>Task status with specified name.</returns>
+        Task<TaskStatuses> GetByNameAsync(string name);
     }
 }

@@ -15,5 +15,12 @@ namespace ToDoApplication.Domain.Interfaces
         /// <param name="newToDoList">New ToDoList data.</param>
         /// <returns>Updated ToDoList id.</returns>
         new Task<int> UpdateAsync(int id, ToDoList newToDoList);
+
+        /// <summary>
+        /// Returns list with given name.
+        /// </summary>
+        /// <param name="name">List name.</param>
+        /// <returns>List with specified name.</returns>
+        Task<ToDoList> GetByNameAsync(string name);
     }
 }

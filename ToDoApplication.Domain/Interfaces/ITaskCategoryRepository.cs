@@ -15,5 +15,12 @@ namespace ToDoApplication.Domain.Interfaces
         /// <param name="newTaskCategory">New task category data.</param>
         /// <returns>Updated task category id.</returns>
         new Task<int> UpdateAsync(int id, TaskCategory newTaskCategory);
+
+        /// <summary>
+        /// Returns task category with given name.
+        /// </summary>
+        /// <param name="name">Task category name.</param>
+        /// <returns>Task category with specified name.</returns>
+        Task<TaskCategory> GetByNameAsync(string name);
     }
 }

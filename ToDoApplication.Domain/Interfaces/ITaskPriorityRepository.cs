@@ -15,5 +15,12 @@ namespace ToDoApplication.Domain.Interfaces
         /// <param name="newTaskPriority">New task priority data.</param>
         /// <returns>Updated task priority id.</returns>
         new Task<int> UpdateAsync(int id, TaskPriority newTaskPriority);
+
+        /// <summary>
+        /// Returns task priority with given name.
+        /// </summary>
+        /// <param name="name">Task priority name.</param>
+        /// <returns>Task priority with specified name.</returns>
+        Task<TaskPriority> GetByNameAsync(string name);
     }
 }
