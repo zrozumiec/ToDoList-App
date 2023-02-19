@@ -10,11 +10,6 @@ namespace ToDoApplication.Application.DTOs
         /// <summary>
         /// Gets or sets category name.
         /// </summary>
-        public string Name { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Gets or sets category name.
-        /// </summary>
         public string Description { get; set; } = string.Empty;
 
         /// <summary>

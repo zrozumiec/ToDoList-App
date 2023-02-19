@@ -18,11 +18,6 @@ namespace ToDoApplication.Application.DTOs
         public DateTimeOffset DueDate { get; set; }
 
         /// <summary>
-        /// Gets or sets task title.
-        /// </summary>
-        public string Tile { get; set; } = string.Empty;
-
-        /// <summary>
         /// Gets or sets task description.
         /// </summary>
         public string Description { get; set; } = string.Empty;

@@ -9,11 +9,6 @@ namespace ToDoApplication.Application.DTOs
     public class ToDoListDto : BaseDto
     {
         /// <summary>
-        /// Gets or sets list title.
-        /// </summary>
-        public string Tile { get; set; } = string.Empty;
-
-        /// <summary>
         /// Gets or sets list description.
         /// </summary>
         public string Description { get; set; } = string.Empty;
