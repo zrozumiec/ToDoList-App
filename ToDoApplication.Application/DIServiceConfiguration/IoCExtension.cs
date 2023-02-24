@@ -1,7 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
+using ToDoApplication.Application.DTOs;
 using ToDoApplication.Application.Interfaces;
 using ToDoApplication.Application.Mapper;
 using ToDoApplication.Application.Services;
+using ToDoApplication.Application.Validators;
 
 namespace ToDoApplication.Application.DIServiceConfiguration
 {
@@ -36,6 +39,20 @@ namespace ToDoApplication.Application.DIServiceConfiguration
             services.AddAutoMapper(typeof(TaskStatusesMappingProfile));
             services.AddAutoMapper(typeof(ToDoTaskMappingProfile));
             services.AddAutoMapper(typeof(ToDoListMappingProfile));
+        }
+
+        /// <summary>
+        /// Inject application validators to DI service.
+        /// </summary>
+        /// <param name="services">Extension IServiceCollection.</param>
+        public static void RegisterValidators(this IServiceCollection services)
+        {
+            services.AddScoped<IValidator<TaskCategoryDto>, TaskCategoryValidator>();
+            services.AddScoped<IValidator<TaskNotesDto>, TaskNotesValidator>();
+            services.AddScoped<IValidator<TaskPriorityDto>, TaskPriorityValidator>();
+            services.AddScoped<IValidator<TaskStatusesDto>, TaskStatusesValidator>();
+            services.AddScoped<IValidator<ToDoListDto>, ToDoListValidator>();
+            services.AddScoped<IValidator<ToDoTaskDto>, ToDoTaskValidator>();
         }
     }
 }
