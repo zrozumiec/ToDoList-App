@@ -1,0 +1,14 @@
+# Custom Rulset
+# Description: Custom Rulset
+
+# Code files
+[*.{cs,vb}]
+
+dotnet_diagnostic.SA1633.severity = none
+dotnet_diagnostic.CA1303.severity = none
+dotnet_diagnostic.SA1200.severity = none
+dotnet_diagnostic.SA1413.severity = none
+dotnet_diagnostic.SA1600.severity = none
+
+# SA0001: XML comment analysis disabled
+dotnet_diagnostic.SA0001.severity = none
