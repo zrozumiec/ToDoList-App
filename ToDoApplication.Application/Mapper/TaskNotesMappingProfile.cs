@@ -15,6 +15,7 @@ namespace ToDoApplication.Application.Mapper
         public TaskNotesMappingProfile()
         {
             this.CreateMap<TaskNotes, TaskNotesDto>()
+                .ForMember(m => m.Name, d => d.MapFrom(s => s.Description))
                 .ReverseMap();
         }
     }
