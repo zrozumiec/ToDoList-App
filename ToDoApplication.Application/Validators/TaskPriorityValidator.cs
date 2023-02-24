@@ -9,7 +9,7 @@ namespace ToDoApplication.Application.Validators
     /// </summary>
     public class TaskPriorityValidator : AbstractValidator<TaskPriorityDto>
     {
-        private readonly Regex regEx = new Regex("^[a-zA-Z]*$");
+        private readonly Regex regEx = new Regex(@"^[a-zA-Z\s]*$");
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TaskPriorityValidator"/> class.
