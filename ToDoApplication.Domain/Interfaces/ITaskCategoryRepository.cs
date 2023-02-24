@@ -22,5 +22,12 @@ namespace ToDoApplication.Domain.Interfaces
         /// <param name="name">Task category name.</param>
         /// <returns>Task category with specified name.</returns>
         Task<TaskCategory> GetByNameAsync(string name);
+
+        /// <summary>
+        /// Checks by name if category already exist in database.
+        /// </summary>
+        /// <param name="name">Category name.</param>
+        /// <returns>Return category specified by name.</returns>
+        Task<TaskCategory> CheckIfExistInDataBaseWithSameNameAsync(string name);
     }
 }

@@ -22,5 +22,12 @@ namespace ToDoApplication.Domain.Interfaces
         /// <param name="name">Task priority name.</param>
         /// <returns>Task priority with specified name.</returns>
         Task<TaskPriority> GetByNameAsync(string name);
+
+        /// <summary>
+        /// Checks by name if priority already exist in database.
+        /// </summary>
+        /// <param name="name">Priority name.</param>
+        /// <returns>Return priority specified by name.</returns>
+        Task<TaskPriority> CheckIfExistInDataBaseWithSameNameAsync(string name);
     }
 }

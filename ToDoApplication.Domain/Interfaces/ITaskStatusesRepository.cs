@@ -22,5 +22,12 @@ namespace ToDoApplication.Domain.Interfaces
         /// <param name="name">Task status name.</param>
         /// <returns>Task status with specified name.</returns>
         Task<TaskStatuses> GetByNameAsync(string name);
+
+        /// <summary>
+        /// Checks by name if status already exist in database.
+        /// </summary>
+        /// <param name="name">Status name.</param>
+        /// <returns>Return status specified by name.</returns>
+        Task<TaskStatuses> CheckIfExistInDataBaseWithSameNameAsync(string name);
     }
 }

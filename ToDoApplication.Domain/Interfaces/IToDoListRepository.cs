@@ -22,5 +22,12 @@ namespace ToDoApplication.Domain.Interfaces
         /// <param name="name">List name.</param>
         /// <returns>List with specified name.</returns>
         Task<ToDoList> GetByNameAsync(string name);
+
+        /// <summary>
+        /// Checks by name if list already exist in database.
+        /// </summary>
+        /// <param name="name">List name.</param>
+        /// <returns>Return list specified by name.</returns>
+        Task<ToDoList> CheckIfExistInDataBaseWithSameNameAsync(string name);
     }
 }
