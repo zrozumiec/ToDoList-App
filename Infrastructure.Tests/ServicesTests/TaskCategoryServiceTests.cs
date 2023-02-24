@@ -209,8 +209,8 @@ namespace ToDoApplication.Tests.Services
             this.mockRepository = new Mock<ITaskCategoryRepository>();
             this.mockMapper = new Mock<IMapper>();
             this.mockMapper.Setup(x => x.Map<TaskCategory>(It.IsAny<TaskCategoryDto>())).Returns(this.category);
-            this.mockMapper.Setup(x => x.Map<TaskCategoryDto>(It.IsAny<TaskCategory>())).Returns(this.categoryDto);
-            this.mockRepository.Setup(x => x.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(this.category);
+            this.mockMapper.Setup(x => x.Map<TaskCategoryDto>(It.IsAny<TaskCategory>())).Returns(this.categoryNewDataDto);
+            this.mockRepository.Setup(x => x.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(this.categoryNewData);
             this.mockRepository.Setup(x => x.CheckIfExistInDataBaseWithSameNameAsync(It.IsAny<string>())).ReturnsAsync(this.category);
             this.service = new TaskCategoryService(this.mockMapper.Object, this.mockRepository.Object);
 

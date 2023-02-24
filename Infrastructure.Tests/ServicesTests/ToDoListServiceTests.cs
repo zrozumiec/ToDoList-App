@@ -303,8 +303,8 @@ namespace ToDoApplication.Tests.Services
             this.mockRepository = new Mock<IToDoListRepository>();
             this.mockMapper = new Mock<IMapper>();
             this.mockMapper.Setup(x => x.Map<ToDoList>(It.IsAny<ToDoListDto>())).Returns(this.list);
-            this.mockMapper.Setup(x => x.Map<ToDoListDto>(It.IsAny<ToDoList>())).Returns(this.listDto);
-            this.mockRepository.Setup(x => x.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(this.list);
+            this.mockMapper.Setup(x => x.Map<ToDoListDto>(It.IsAny<ToDoList>())).Returns(this.listNewDataDto);
+            this.mockRepository.Setup(x => x.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(this.listNewData);
             this.mockRepository.Setup(x => x.CheckIfExistInDataBaseWithSameNameAsync(It.IsAny<string>())).ReturnsAsync(this.list);
             this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object);
 

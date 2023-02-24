@@ -207,8 +207,8 @@ namespace ToDoApplication.Tests.Services
             this.mockRepository = new Mock<ITaskPriorityRepository>();
             this.mockMapper = new Mock<IMapper>();
             this.mockMapper.Setup(x => x.Map<TaskPriority>(It.IsAny<TaskPriorityDto>())).Returns(this.priority);
-            this.mockMapper.Setup(x => x.Map<TaskPriorityDto>(It.IsAny<TaskPriority>())).Returns(this.priorityDto);
-            this.mockRepository.Setup(x => x.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(this.priority);
+            this.mockMapper.Setup(x => x.Map<TaskPriorityDto>(It.IsAny<TaskPriority>())).Returns(this.priorityNewDataDto);
+            this.mockRepository.Setup(x => x.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(this.priorityNewData);
             this.mockRepository.Setup(x => x.CheckIfExistInDataBaseWithSameNameAsync(It.IsAny<string>())).ReturnsAsync(this.priority);
             this.service = new TaskPriorityService(this.mockMapper.Object, this.mockRepository.Object);
 

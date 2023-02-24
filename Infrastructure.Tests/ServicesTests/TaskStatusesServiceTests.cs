@@ -212,8 +212,8 @@ namespace ToDoApplication.Tests.Services
             this.mockRepository = new Mock<ITaskStatusesRepository>();
             this.mockMapper = new Mock<IMapper>();
             this.mockMapper.Setup(x => x.Map<TaskStatuses>(It.IsAny<TaskStatusesDto>())).Returns(this.status);
-            this.mockMapper.Setup(x => x.Map<TaskStatusesDto>(It.IsAny<TaskStatuses>())).Returns(this.statusDto);
-            this.mockRepository.Setup(x => x.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(this.status);
+            this.mockMapper.Setup(x => x.Map<TaskStatusesDto>(It.IsAny<TaskStatuses>())).Returns(this.statusNewDataDto);
+            this.mockRepository.Setup(x => x.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(this.statusNewData);
             this.mockRepository.Setup(x => x.CheckIfExistInDataBaseWithSameNameAsync(It.IsAny<string>())).ReturnsAsync(this.status);
             this.service = new TaskStatusesService(this.mockMapper.Object, this.mockRepository.Object);
 
