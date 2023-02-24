@@ -88,7 +88,7 @@ namespace ToDoApplication.Application.Services
 
             var itemInDatabaseWithSameName = this.repository.CheckIfExistInDataBaseWithSameNameAsync(toDoListDto.Name).Result;
 
-            if (itemInDatabaseWithSameName is not null)
+            if (itemInDatabaseWithSameName is not null && itemInDatabaseWithSameName.Tile != itemInDatabase.Name)
             {
                 throw new ArgumentException("List with given name already exist in database.", nameof(id));
             }

@@ -73,7 +73,7 @@ namespace ToDoApplication.Application.Services
 
             var itemInDatabaseWithSameName = this.repository.CheckIfExistInDataBaseWithSameNameAsync(taskCategoryDto.Name).Result;
 
-            if (itemInDatabaseWithSameName is not null)
+            if (itemInDatabaseWithSameName is not null && itemInDatabaseWithSameName.Name != itemInDatabase.Name)
             {
                 throw new ArgumentException("Category with given name already exist in database.", nameof(id));
             }
