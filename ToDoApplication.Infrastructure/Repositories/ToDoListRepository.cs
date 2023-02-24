@@ -41,5 +41,11 @@ namespace ToDoApplication.Infrastructure.Repositories
         {
             return await this.DbSet.FirstOrDefaultAsync(x => x.Tile.ToLower() == name.ToLower());
         }
+
+        /// <inheritdoc/>
+        public async Task<ToDoList> CheckIfExistInDataBaseWithSameNameAsync(string name)
+        {
+            return await this.DbSet.FirstOrDefaultAsync(x => x.Description.ToLower() == name.ToLower());
+        }
     }
 }
