@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Moq;
+using System.Linq;
 using ToDoApplication.Application.DTOs;
 using ToDoApplication.Application.Services;
 using ToDoApplication.Domain.Interfaces;
@@ -8,8 +9,8 @@ namespace ToDoApplication.Tests.Services
 {
     public class ToDoTaskServiceTests
     {
-        private Mock<IToDoTaskRepository> mockRepository = new();
-        private Mock<IMapper> mockMapper = new();
+        private Mock<IToDoTaskRepository> mockRepository = new ();
+        private Mock<IMapper> mockMapper = new ();
         private ToDoTaskService? service;
         private ToDoTaskDto toDoTaskDto;
         private ToDoTaskDto toDoTaskNewDataDto;
@@ -74,12 +75,14 @@ namespace ToDoApplication.Tests.Services
             {
                 Id = 1,
                 Name = "taskNote1 New data",
+                ListId = 1,
             };
 
             this.toDoTaskNewData = new ToDoTask
             {
                 Id = 1,
                 Tile = "taskNote1 New data",
+                ListId = 1,
             };
 
             this.listOfToDoTasks = new List<ToDoTask>()
@@ -96,12 +99,36 @@ namespace ToDoApplication.Tests.Services
             {
                 this.toDoTask,
                 this.toDoTaskNewData,
+                new ToDoTask()
+                {
+                    Id = 1,
+                    Tile = "2",
+                    ListId = 2,
+                },
+                new ToDoTask()
+                {
+                    Id = 1,
+                    Tile = "2",
+                    ListId = 4,
+                },
             };
 
             this.listOfToDoTasks2Dto = new List<ToDoTaskDto>()
             {
                 this.toDoTaskDto,
                 this.toDoTaskNewDataDto,
+                new ToDoTaskDto()
+                {
+                    Id = 1,
+                    Name = "2",
+                    ListId = 2,
+                },
+                new ToDoTaskDto()
+                {
+                    Id = 1,
+                    Name = "2",
+                    ListId = 4,
+                },
             };
         }
 
@@ -283,17 +310,20 @@ namespace ToDoApplication.Tests.Services
         public void GetAll_ValidCall_ReturnsAllTasks()
         {
             // Arrange
+            var listId = 1;
+            var expectedCount = this.listOfToDoTasks2.Count(x => x.ListId == listId);
             this.mockRepository = new Mock<IToDoTaskRepository>();
             this.mockMapper = new Mock<IMapper>();
-            this.mockMapper.Setup(x => x.Map<IEnumerable<ToDoTaskDto>>(It.IsAny<IEnumerable<ToDoTask>>())).Returns(this.listOfToDoTasks2Dto);
-            this.mockRepository.Setup(x => x.GetAll()).Returns(this.listOfToDoTasks2.AsQueryable());
+            this.mockMapper.Setup(x => x.Map<IEnumerable<ToDoTaskDto>>(It.IsAny<IEnumerable<ToDoTask>>())).Returns(this.listOfToDoTasks2Dto.Where(x => x.ListId == listId));
+            this.mockRepository.Setup(x => x.GetAll()).Returns(this.listOfToDoTasks2.Where(x => x.ListId == listId).AsQueryable());
             this.service = new ToDoTaskService(this.mockMapper.Object, this.mockRepository.Object);
 
             // Act
-            var result = this.service.GetAll().ToList();
+            var result = this.service.GetAll(listId).ToList();
 
             // Assert
-            this.mockRepository.Verify(x => x.GetAll(), Times.Once());
+            this.mockRepository.Verify(x => x.GetAll(It.IsAny<int>()), Times.Once());
+            Assert.True(result.Count == expectedCount);
 
             for (int i = 0; i < result.Count; i++)
             {
