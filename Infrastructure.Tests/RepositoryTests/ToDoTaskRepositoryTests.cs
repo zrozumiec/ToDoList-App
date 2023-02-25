@@ -36,7 +36,7 @@ namespace ToDoApplication.Tests.Repositories
                         Important = false,
                         IsCompleted = false,
                         ListId = 1,
-                    }); ;
+                    });
             }
         }
 
@@ -48,18 +48,77 @@ namespace ToDoApplication.Tests.Repositories
 
             this.dbContext = new AppDbContext(dbContextOptions.Options);
             this.dbContext.Database.EnsureCreated();
-            this.dbContext.ToDoTasks.Add(
+            this.dbContext.ToDoLists.Add(
+                new ToDoList()
+                {
+                    Id = 100,
+                    CreationDate = DateTimeOffset.UtcNow,
+                    Tile = "My list",
+                    Tasks = new List<ToDoTask>()
+                    {
+                        new ToDoTask()
+                        {
+                            Tile = "ToDoTask1 Db",
+                            Description = "Test ToDoTask1 Db description",
+                            DueDate = DateTimeOffset.UtcNow,
+                            Reminder = false,
+                            ReminderDate = DateTimeOffset.UtcNow,
+                            Daily = true,
+                            Important = true,
+                            IsCompleted = true,
+                            ListId = 100,
+                        },
+                        new ToDoTask()
+                        {
+                            Tile = "ToDoTask2 Db",
+                            Description = "Test ToDoTask2 Db description",
+                            DueDate = DateTimeOffset.UtcNow,
+                            Reminder = false,
+                            ReminderDate = DateTimeOffset.UtcNow,
+                            Daily = true,
+                            Important = true,
+                            IsCompleted = true,
+                            ListId = 100,
+                        },
+                        new ToDoTask()
+                        {
+                            Tile = "ToDoTask3 Db",
+                            Description = "Test ToDoTask3 Db description",
+                            DueDate = DateTimeOffset.UtcNow,
+                            Reminder = false,
+                            ReminderDate = DateTimeOffset.UtcNow,
+                            Daily = true,
+                            Important = true,
+                            IsCompleted = true,
+                            ListId = 100,
+                        },
+                    }
+                });
+            this.dbContext.SaveChanges();
+            this.dbContext.ToDoTasks.AddRange(
                 new ToDoTask()
                 {
-                    Tile = "ToDoTask1 Db",
-                    Description = "Test ToDoTask1 Db description",
+                    Tile = "ToDoTask4 Db",
+                    Description = "Test ToDoTask4 Db description",
                     DueDate = DateTimeOffset.UtcNow,
                     Reminder = false,
                     ReminderDate = DateTimeOffset.UtcNow,
                     Daily = true,
                     Important = true,
                     IsCompleted = true,
-                    ListId = 1,
+                    ListId = 2,
+                },
+                new ToDoTask()
+                {
+                    Tile = "ToDoTask5 Db",
+                    Description = "Test ToDoTask5 Db description",
+                    DueDate = DateTimeOffset.UtcNow,
+                    Reminder = false,
+                    ReminderDate = DateTimeOffset.UtcNow,
+                    Daily = true,
+                    Important = true,
+                    IsCompleted = true,
+                    ListId = 3,
                 });
             this.dbContext.SaveChanges();
 
@@ -210,6 +269,19 @@ namespace ToDoApplication.Tests.Repositories
 
             // Assert
             Assert.Null(result);
+        }
+
+        [Test]
+        [TestCase(100, 3)]
+        [TestCase(101, 1)]
+        [TestCase(102, 1)]
+        public void GetAll_ShouldReturnAllListTasks(int id, int count)
+        {
+            // Act
+            var result = this.repository.GetAll(id);
+
+            // Assert
+            Assert.True(result.Count() == count);
         }
     }
 }
