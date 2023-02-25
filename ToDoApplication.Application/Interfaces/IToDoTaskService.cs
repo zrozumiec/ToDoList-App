@@ -42,10 +42,11 @@ namespace ToDoApplication.Application.Interfaces
         Task<ToDoTaskDto> GetByIdAsync(int id);
 
         /// <summary>
-        /// Returns all taska.
+        /// Gets all task for specified list.
         /// </summary>
-        /// <returns>All taska.</returns>
-        IEnumerable<ToDoTaskDto> GetAll();
+        /// <param name="listId">ToDoList id.</param>
+        /// <returns>All tasks included in specified list.</returns>
+        IEnumerable<ToDoTaskDto> GetAll(int listId);
 
         /// <summary>
         /// Returns all daily tasks.
