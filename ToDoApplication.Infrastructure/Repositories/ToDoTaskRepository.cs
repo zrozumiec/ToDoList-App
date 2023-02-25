@@ -40,5 +40,15 @@ namespace ToDoApplication.Infrastructure.Repositories
 
             return toDoTaskInDatabase.Id;
         }
+
+        /// <summary>
+        /// Gets all task for specified ToDoList.
+        /// </summary>
+        /// <param name="listId">ToDoList id.</param>
+        /// <returns>All tasks included in specified list.</returns>
+        public IQueryable<ToDoTask> GetAll(int listId)
+        {
+            return this.DbSet.Where(x => x.ListId == listId);
+        }
     }
 }

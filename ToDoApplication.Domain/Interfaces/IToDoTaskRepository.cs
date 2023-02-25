@@ -15,5 +15,12 @@ namespace ToDoApplication.Domain.Interfaces
         /// <param name="newTask">New ToDoToDoTaskList data.</param>
         /// <returns>Updated ToDoTask id.</returns>
         new Task<int> UpdateAsync(int id, ToDoTask newTask);
+
+        /// <summary>
+        /// Gets all task for specified ToDoList.
+        /// </summary>
+        /// <param name="listId">ToDoList id.</param>
+        /// <returns>All tasks included in specified list.</returns>
+        IQueryable<ToDoTask> GetAll(int listId);
     }
 }
