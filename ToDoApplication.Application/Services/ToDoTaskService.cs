@@ -186,6 +186,16 @@ namespace ToDoApplication.Application.Services
             return this.mapper.Map<IEnumerable<ToDoTaskDto>>(uncompletedTask);
         }
 
+        /// <inheritdoc/>
+        public void FillListTasks(IEnumerable<ToDoListDto> lists)
+        {
+            foreach (var list in lists)
+            {
+                list.Tasks = this.GetAll(list.Id);
+                list.NumberOfTasks = list.Tasks.Count();
+            }
+        }
+
         private static bool CheckIfDueDateOccurs(DateTimeOffset date1, DateTimeOffset date2)
         {
             return (date1.Year == date2.Year) && (date2.DayOfYear == date1.DayOfYear);

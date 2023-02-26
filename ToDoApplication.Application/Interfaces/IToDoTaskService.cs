@@ -56,6 +56,12 @@ namespace ToDoApplication.Application.Interfaces
         IEnumerable<ToDoTaskDto> GetAll(int listId);
 
         /// <summary>
+        /// Fill list tasks.
+        /// </summary>
+        /// <param name="lists">Collection of list.</param>
+        void FillListTasks(IEnumerable<ToDoListDto> lists);
+
+        /// <summary>
         /// Returns all daily tasks.
         /// </summary>
         /// <returns>Daily tasks.</returns>
