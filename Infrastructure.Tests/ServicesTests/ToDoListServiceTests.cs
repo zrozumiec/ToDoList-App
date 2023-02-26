@@ -213,27 +213,6 @@ namespace ToDoApplication.Tests.Services
         }
 
         [Test]
-        public void AddAsync_ShouldThrowArgumentException_WhenListDtoWithExistingNameIsPassed()
-        {
-            // Arrange
-            this.mockRepository = new Mock<IToDoListRepository>();
-            this.mockMapper = new Mock<IMapper>();
-            this.mockMapper.Setup(x => x.Map<ToDoList>(It.IsAny<ToDoListDto>())).Returns(this.list);
-            this.mockMapper.Setup(x => x.Map<ToDoListDto>(It.IsAny<ToDoList>())).Returns(this.listDto);
-            this.mockRepository.Setup(x => x.GetByNameAsync(this.listToAddDto.Name)).ReturnsAsync(this.list);
-            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object);
-
-            // Act
-            var exception = Assert.ThrowsAsync<ArgumentException>(() => this.service.AddAsync(this.listToAddDto));
-
-            // Assert
-            this.mockRepository.Verify(x => x.GetByNameAsync(It.IsAny<string>()), Times.Once());
-            Assert.That(
-                exception.Message,
-                Is.EqualTo("List already exist in database. (Parameter 'toDoListDto')"));
-        }
-
-        [Test]
         public async Task DeleteAsync_ValidId_ReturnsDeletedId()
         {
             // Arrange

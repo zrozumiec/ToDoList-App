@@ -33,13 +33,6 @@ namespace ToDoApplication.Application.Services
                 throw new ArgumentNullException(nameof(toDoListDto), "List can not be null.");
             }
 
-            var taskStatusesInDatabase = this.GetByNameInternalAsync(toDoListDto.Name).Result;
-
-            if (taskStatusesInDatabase is not null)
-            {
-                throw new ArgumentException("List already exist in database.", nameof(toDoListDto));
-            }
-
             return this.AddInternalAsync(toDoListDto);
         }
 
