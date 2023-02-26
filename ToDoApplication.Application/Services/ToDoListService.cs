@@ -156,12 +156,5 @@ namespace ToDoApplication.Application.Services
 
             return await this.repository.UpdateAsync(id, item);
         }
-
-        private async Task<ToDoListDto> GetByNameInternalAsync(string listName)
-        {
-            var listInDatabase = await this.repository.GetByNameAsync(listName);
-
-            return this.mapper.Map<ToDoListDto>(listInDatabase);
-        }
     }
 }
