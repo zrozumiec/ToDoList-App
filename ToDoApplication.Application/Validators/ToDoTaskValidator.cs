@@ -28,7 +28,8 @@ namespace ToDoApplication.Application.Validators
                 .GreaterThan(x => x.CreationDate);
 
             this.RuleFor(x => x.ReminderDate)
-                .GreaterThan(x => x.CreationDate);
+                .GreaterThan(x => x.CreationDate)
+                .When(x => x.Reminder);
         }
     }
 }

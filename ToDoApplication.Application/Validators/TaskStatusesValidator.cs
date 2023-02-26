@@ -23,9 +23,7 @@ namespace ToDoApplication.Application.Validators
                 .Matches(this.regEx).WithMessage("Priority name can contains only characters.");
 
             this.RuleFor(x => x.Description)
-                .NotNull()
-                .NotEmpty()
-                .MaximumLength(250);
+                .Empty();
         }
     }
 }
