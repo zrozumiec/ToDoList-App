@@ -81,6 +81,14 @@ namespace ToDoApplication.Application.Services
         }
 
         /// <inheritdoc/>
+        public IEnumerable<ToDoTaskDto> GetAll()
+        {
+            var items = this.repository.GetAll();
+
+            return this.mapper.Map<IEnumerable<ToDoTaskDto>>(items);
+        }
+
+        /// <inheritdoc/>
         public IEnumerable<ToDoTaskDto> GetAll(int listId)
         {
             var items = this.repository.GetAll(listId);

@@ -46,6 +46,13 @@ namespace ToDoApplication.Application.Interfaces
         /// </summary>
         /// <param name="listId">ToDoList id.</param>
         /// <returns>All tasks included in specified list.</returns>
+        IEnumerable<ToDoTaskDto> GetAll();
+
+        /// <summary>
+        /// Gets all task for specified list.
+        /// </summary>
+        /// <param name="listId">ToDoList id.</param>
+        /// <returns>All tasks included in specified list.</returns>
         IEnumerable<ToDoTaskDto> GetAll(int listId);
 
         /// <summary>
