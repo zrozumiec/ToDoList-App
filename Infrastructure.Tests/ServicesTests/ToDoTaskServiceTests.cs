@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Moq;
-using System.Linq;
 using ToDoApplication.Application.DTOs;
 using ToDoApplication.Application.Services;
 using ToDoApplication.Domain.Interfaces;
@@ -18,7 +17,6 @@ namespace ToDoApplication.Tests.Services
         private List<ToDoTaskDto> listOfToDoTasks2Dto;
         private ToDoTask toDoTask;
         private ToDoTask toDoTaskNewData;
-        private List<ToDoTask> listOfToDoTasks;
         private List<ToDoTask> listOfToDoTasks2;
 
         private static IEnumerable<TestCaseData> CheckIfReminderTimeOccurs
@@ -83,11 +81,6 @@ namespace ToDoApplication.Tests.Services
                 Id = 1,
                 Tile = "taskNote1 New data",
                 ListId = 1,
-            };
-
-            this.listOfToDoTasks = new List<ToDoTask>()
-            {
-                this.toDoTask,
             };
 
             this.listOfToDoTasksDto = new List<ToDoTaskDto>()
