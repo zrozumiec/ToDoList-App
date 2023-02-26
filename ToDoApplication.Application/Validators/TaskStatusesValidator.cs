@@ -9,7 +9,7 @@ namespace ToDoApplication.Application.Validators
     /// </summary>
     public class TaskStatusesValidator : AbstractValidator<TaskStatusesDto>
     {
-        private readonly Regex regEx = new Regex(@"^[a-zA-Z\s]*$");
+        private readonly Regex regEx = new (@"^[a-zA-Z\s]*$");
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TaskStatusesValidator"/> class.
