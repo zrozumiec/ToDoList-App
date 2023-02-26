@@ -279,7 +279,7 @@ namespace ToDoApplication.Tests.Services
 
             // Assert
             this.mockRepository.Verify(x => x.GetByIdAsync(It.IsAny<int>()), Times.Once());
-            this.Compare(result, this.toDoTask);
+            Compare(result, this.toDoTask);
         }
 
         [Test]
@@ -316,11 +316,11 @@ namespace ToDoApplication.Tests.Services
 
             // Assert
             this.mockRepository.Verify(x => x.GetAll(It.IsAny<int>()), Times.Once());
-            Assert.True(result.Count == expectedCount);
+            Assert.That(result, Has.Count.EqualTo(expectedCount));
 
             for (int i = 0; i < result.Count; i++)
             {
-                this.Compare(result[i], this.listOfToDoTasks2[i]);
+                Compare(result[i], this.listOfToDoTasks2[i]);
             }
         }
 
@@ -533,7 +533,7 @@ namespace ToDoApplication.Tests.Services
             this.mockRepository.Verify(x => x.GetAll(), Times.Once());
         }
 
-        private void Compare(ToDoTaskDto taskDto, ToDoTask task)
+        private static void Compare(ToDoTaskDto taskDto, ToDoTask task)
         {
             Assert.Multiple(() =>
             {

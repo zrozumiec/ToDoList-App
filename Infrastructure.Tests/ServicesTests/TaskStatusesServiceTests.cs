@@ -18,7 +18,6 @@ namespace ToDoApplication.Tests.Services
         private List<TaskStatusesDto> listOfStatuses2Dto;
         private TaskStatuses status;
         private TaskStatuses statusNewData;
-        private List<TaskStatuses> listOfStatuses;
         private List<TaskStatuses> listOfStatuses2;
 
         [SetUp]
@@ -57,11 +56,6 @@ namespace ToDoApplication.Tests.Services
                 Id = 15,
                 Name = "priority",
                 Description = "Description",
-            };
-
-            this.listOfStatuses = new List<TaskStatuses>()
-            {
-                this.status,
             };
 
             this.listOfStatusesDto = new List<TaskStatusesDto>()
@@ -252,7 +246,7 @@ namespace ToDoApplication.Tests.Services
             // Arrange
             this.mockRepository = new Mock<ITaskStatusesRepository>();
             this.mockMapper = new Mock<IMapper>();
-            this.mockMapper.Setup(x => x.Map<TaskStatuses>(It.IsAny<TaskStatusesDto >())).Returns(this.status);
+            this.mockMapper.Setup(x => x.Map<TaskStatuses>(It.IsAny<TaskStatusesDto>())).Returns(this.status);
             this.mockMapper.Setup(x => x.Map<TaskStatusesDto>(It.IsAny<TaskStatuses>())).Returns((TaskStatusesDto)null!);
             this.mockRepository.Setup(x => x.GetByIdAsync(It.IsAny<int>())).ReturnsAsync((TaskStatuses)null!);
             this.service = new TaskStatusesService(this.mockMapper.Object, this.mockRepository.Object);
@@ -283,7 +277,7 @@ namespace ToDoApplication.Tests.Services
 
             // Assert
             this.mockRepository.Verify(x => x.GetByIdAsync(It.IsAny<int>()), Times.Once());
-            this.Compare(result, this.status);
+            Compare(result, this.status);
         }
 
         [Test]
@@ -323,11 +317,11 @@ namespace ToDoApplication.Tests.Services
 
             for (int i = 0; i < result.Count; i++)
             {
-                this.Compare(result[i], this.listOfStatuses2[i]);
+                Compare(result[i], this.listOfStatuses2[i]);
             }
         }
 
-        private void Compare(TaskStatusesDto statusDto, TaskStatuses status)
+        private static void Compare(TaskStatusesDto statusDto, TaskStatuses status)
         {
             Assert.Multiple(() =>
             {

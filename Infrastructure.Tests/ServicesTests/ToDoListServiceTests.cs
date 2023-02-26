@@ -13,12 +13,10 @@ namespace ToDoApplication.Tests.Services
         private ToDoListService? service;
         private ToDoListDto listDto;
         private ToDoListDto listNewDataDto;
-        private ToDoListDto listToAddDto;
         private List<ToDoListDto> listOfToDoListDto;
         private List<ToDoListDto> listOfToDoList2Dto;
         private ToDoList list;
         private ToDoList listNewData;
-        private List<ToDoList> listOfToDoList;
         private List<ToDoList> listOfToDoList2;
 
         [SetUp]
@@ -138,21 +136,6 @@ namespace ToDoApplication.Tests.Services
                         ListId = 1,
                     }
                 }
-            };
-
-            this.listToAddDto = new ToDoListDto
-            {
-                Id = 2,
-                Name = "List 1",
-                Description = "List number 2",
-                CreationDate = DateTimeOffset.MinValue,
-                IsHidden = false,
-                UserId = "22",
-            };
-
-            this.listOfToDoList = new List<ToDoList>()
-            {
-                this.list,
             };
 
             this.listOfToDoListDto = new List<ToDoListDto>()
@@ -353,7 +336,7 @@ namespace ToDoApplication.Tests.Services
 
             // Assert
             this.mockRepository.Verify(x => x.GetByIdAsync(It.IsAny<int>()), Times.Once());
-            this.Compare(result, this.list);
+            Compare(result, this.list);
         }
 
         [Test]
@@ -393,7 +376,7 @@ namespace ToDoApplication.Tests.Services
 
             for (int i = 0; i < result.Count; i++)
             {
-                this.Compare(result[i], this.listOfToDoList2[i]);
+                Compare(result[i], this.listOfToDoList2[i]);
             }
         }
 
@@ -416,11 +399,14 @@ namespace ToDoApplication.Tests.Services
             // Assert
             this.mockRepository.Verify(x => x.GetByIdAsync(It.IsAny<int>()), Times.Once());
             this.mockRepository.Verify(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<ToDoList>()), Times.Once());
-            Assert.That(result, Is.EqualTo(this.list.Id));
-            Assert.That(this.list.IsHidden, Is.EqualTo(true));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(this.list.Id));
+                Assert.That(this.list.IsHidden, Is.EqualTo(true));
+            });
         }
 
-        private void Compare(ToDoListDto listDto, ToDoList list)
+        private static void Compare(ToDoListDto listDto, ToDoList list)
         {
             Assert.Multiple(() =>
             {
