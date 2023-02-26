@@ -54,7 +54,7 @@ namespace ToDoApplication.Infrastructure.Repositories.Base
         public abstract Task<int> UpdateAsync(int id, T newItem);
 
         /// <inheritdoc/>
-        public virtual IQueryable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return this.DbSet;
         }

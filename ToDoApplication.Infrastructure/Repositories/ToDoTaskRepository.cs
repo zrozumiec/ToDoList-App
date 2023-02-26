@@ -35,6 +35,9 @@ namespace ToDoApplication.Infrastructure.Repositories
             toDoTaskInDatabase.Daily = newTask.Daily;
             toDoTaskInDatabase.Important = newTask.Important;
             toDoTaskInDatabase.IsCompleted = newTask.IsCompleted;
+            toDoTaskInDatabase.StatusId = newTask.StatusId;
+            toDoTaskInDatabase.CategoryId = newTask.CategoryId;
+            toDoTaskInDatabase.PriorityId = newTask.PriorityId;
 
             await this.SaveAsync();
 
@@ -46,7 +49,7 @@ namespace ToDoApplication.Infrastructure.Repositories
         /// </summary>
         /// <param name="listId">ToDoList id.</param>
         /// <returns>All tasks included in specified list.</returns>
-        public IQueryable<ToDoTask> GetAll(int listId)
+        public IEnumerable<ToDoTask> GetAll(int listId)
         {
             return this.DbSet.Where(x => x.ListId == listId);
         }
