@@ -21,6 +21,6 @@ namespace ToDoApplication.Domain.Interfaces
         /// </summary>
         /// <param name="listId">ToDoList id.</param>
         /// <returns>All tasks included in specified list.</returns>
-        IQueryable<ToDoTask> GetAll(int listId);
+        IEnumerable<ToDoTask> GetAll(int listId);
     }
 }

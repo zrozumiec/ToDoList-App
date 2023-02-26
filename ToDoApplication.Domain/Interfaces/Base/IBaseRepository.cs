@@ -35,7 +35,7 @@ namespace ToDoApplication.Domain.Interfaces.Base
         /// Returns all items from database.
         /// </summary>
         /// <returns>All items of type T.</returns>
-        IQueryable<T> GetAll();
+        IEnumerable<T> GetAll();
 
         /// <summary>
         /// Returns item with given id.
