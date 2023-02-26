@@ -11,17 +11,7 @@
 @section Scripts{
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script type="text/javascript" src="~/js/date-picker.js"></script>
-    <script>
-        $("#reminder").click(function () {
-            if ($(this).is(":checked")) {
-                $('#reminderDate').removeAttr('disabled');
-            }
-            else {
-                $("#reminderDate").attr('disabled', 'disabled');
-
-            }
-        });
-    </script>
+    <script src="~/js/date-picker-disable.js"></script>
 }
 
 <h1>Edit</h1>
