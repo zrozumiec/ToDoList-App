@@ -95,6 +95,6 @@ namespace ToDoApplication.Application.DTOs
         /// <summary>
         /// Gets or sets associated collection of task notes.
         /// </summary>
-        public virtual ICollection<TaskNotesDto> Notes { get; set; } = new List<TaskNotesDto>();
+        public virtual IEnumerable<TaskNotesDto> Notes { get; set; } = new List<TaskNotesDto>();
     }
 }

@@ -15,6 +15,6 @@ namespace ToDoApplication.Application.DTOs
         /// <summary>
         /// Gets or sets collections of associated task.
         /// </summary>
-        public virtual ICollection<ToDoTaskDto> Tasks { get; set; } = new List<ToDoTaskDto>();
+        public virtual IEnumerable<ToDoTaskDto> Tasks { get; set; } = new List<ToDoTaskDto>();
     }
 }
