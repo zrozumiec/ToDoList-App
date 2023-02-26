@@ -1,0 +1,102 @@
+﻿@model ToDoListWithTasksVM;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<p>
+    <a asp-action="Add" asp-route-listId="@Model.ListId">Create New</a>
+</p>
+
+<div>
+    <table class="table table-hover table-responsive" aria-describedby="TaskCategory">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Reminder
+                </th>
+                <th>
+                    Daily
+                </th>
+                <th>
+                    Important
+                </th>
+                <th>
+                    IsCompleted
+                </th>
+                <th>
+                    NumberOfNotes
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
+                    Priority
+                </th>
+                <th>
+                    Status
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var task in Model.ToDoTasks)
+            {
+                <tr class="@(task.Status.Name == "Completed" ? "table-success" : "table-light")">
+                    <td>
+                        @Html.DisplayFor(c => task.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c => task.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c => task.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c => task.Reminder)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c => task.Daily)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c => task.Important)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c => task.IsCompleted)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c => task.NumberOfNotes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c => task.Category.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c => task.Priority.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c => task.Status.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new {id = task.Id, listId = Model.ListId }) |
+                        @Html.ActionLink("Details", "Details", new {id = task.Id, listId = @Model.ListId }) |
+                        @Html.ActionLink("Delete", "Delete", new {id = task.Id, listId = Model.ListId }, new { onclick = "return confirm('Do you want to delete this row?');" }) |
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a asp-controller="ToDoList"  asp-action="Index">Back to List</a>
+</div>
+

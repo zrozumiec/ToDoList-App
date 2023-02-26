@@ -1,0 +1,42 @@
+﻿@model TaskStatusesDto;
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<table class="table table-sm table-bordered table-striped" aria-describedby="TaskCategoryDetails">
+    <tbody>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.Id)
+            </th>
+            <td>
+                @Model.Id
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.Name)
+            </th>
+            <td>
+                @Model.Name
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.Description)
+            </th>
+            <td>
+                @Model.Description
+            </td>
+        </tr>
+        <tr>
+            <th>Number of task using this status:</th>
+            <td>@Model.Tasks.Count()</td>
+        </tr>
+    </tbody>
+</table>
+
+@*<a class="btn btn-warning" asp-controller="Admin" asp-action="Edit" asp-route-productId="@Model?.ProductId">Edit</a>*@
+<a class="btn btn-secondary" asp-controller="TaskStatus" asp-action="Index">Back</a>
+

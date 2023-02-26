@@ -1,0 +1,133 @@
+﻿@model TaskDetailVM;
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<table class="table table-sm table-bordered table-striped" aria-describedby="TaskDetails">
+    <tbody>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.ToDoTask.Id)
+            </th>
+            <td>
+                @Model.ToDoTask.Id
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.ToDoTask.Name)
+            </th>
+            <td>
+                @Model.ToDoTask.Name
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.ToDoTask.Description)
+            </th>
+            <td>
+                @Model.ToDoTask.Description
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Category
+            </th>
+            <td>
+                @Model.ToDoTask.Category.Name
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.ToDoTask.CreationDate)
+            </th>
+            <td>
+                @Model.ToDoTask.CreationDate
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.ToDoTask.Daily)
+            </th>
+            <td>
+                @Model.ToDoTask.Daily
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.ToDoTask.DueDate)
+            </th>
+            <td>
+                @Model.ToDoTask.DueDate
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.ToDoTask.Important)
+            </th>
+            <td>
+                @Model.ToDoTask.Important
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.ToDoTask.IsCompleted)
+            </th>
+            <td>
+                @Model.ToDoTask.IsCompleted
+            </td>
+        </tr>
+        <tr>
+            <th>
+                List
+            </th>
+            <td>
+                @Model.ToDoTask.List.Name
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.ToDoTask.NumberOfNotes)
+            </th>
+            <td>
+                @Model.ToDoTask.NumberOfNotes
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Priority
+            </th>
+            <td>
+                @Model.ToDoTask.Priority.Name
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.ToDoTask.Reminder)
+            </th>
+            <td>
+                @Model.ToDoTask.Reminder
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.ToDoTask.ReminderDate)
+            </th>
+            <td>
+                @Model.ToDoTask.ReminderDate
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Status
+            </th>
+            <td>
+                @Model.ToDoTask.Status.Name
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@*<a class="btn btn-warning" asp-controller="Admin" asp-action="Edit" asp-route-productId="@Model?.ProductId">Edit</a>*@
+<a class="btn btn-secondary" asp-controller="ToDoTask" asp-action="Index" asp-route-listId="@Model.ToDoTask.ListId">Back</a>

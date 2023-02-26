@@ -14,5 +14,16 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+/*    background: rgb(2,0,36);
+    background: -moz-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,99,121,1) 76%);
+    background: -webkit-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,99,121,1) 76%);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,99,121,1) 76%);*/
+}
+
+header {
+    background: rgb(2,0,36);
+    background: -moz-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,99,121,1) 76%);
+    background: -webkit-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,99,121,1) 76%);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,99,121,1) 76%);
 }

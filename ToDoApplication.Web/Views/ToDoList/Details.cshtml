@@ -1,0 +1,78 @@
+﻿@model ToDoListDto;
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<table class="table table-sm table-bordered table-striped" aria-describedby="TaskCategoryDetails">
+    <tbody>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.Id)
+            </th>
+            <td>
+                @Model.Id
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.Name)
+            </th>
+            <td>
+                @Model.Name
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.Description)
+            </th>
+            <td>
+                @Model.Description
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.CreationDate)
+            </th>
+            <td>
+                @Model.CreationDate
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.IsHidden)
+            </th>
+            <td>
+                @Model.IsHidden
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.NumberOfTasks)
+            </th>
+            <td>
+                @Model.NumberOfTasks
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.UserId)
+            </th>
+            <td>
+                @Model.UserId
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.User.UserName)
+            </th>
+            <td>
+                @Model.User.UserName
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@*<a class="btn btn-warning" asp-controller="Admin" asp-action="Edit" asp-route-productId="@Model?.ProductId">Edit</a>*@
+<a class="btn btn-secondary" asp-controller="ToDoList" asp-action="Index">Back</a>
+

@@ -1,0 +1,59 @@
+﻿@model ToDoListsVM;
+
+<div>
+    <table class="table table-hover" aria-describedby="TaskCategory">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                <th>
+                    Name
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Hidden
+                </th>
+                <th>
+                    Creation Date
+                </th>
+                <th>
+                    Number of tasks
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var list in Model.ToDoLists)
+            {
+                <tr class="@(list.IsHidden ? "table-secondary" : "table-light")">
+                    <td>
+                        @Html.DisplayFor(c => list.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c => list.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c => list.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c => list.IsHidden)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c => list.CreationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c => list.NumberOfTasks)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Tasks", "Index", "ToDoTask", new {listId = list.Id}, null) |
+                        @Html.ActionLink("Edit", "Edit", new {id = list.Id}) |
+                        @Html.ActionLink("Details", "Details", new {id = list.Id}) |
+                        @Html.ActionLink("Delete", "Delete", new {id = list.Id}, new { onclick = "return confirm('Do you want to delete this row?');" }) |
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

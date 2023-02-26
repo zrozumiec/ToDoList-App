@@ -1,17 +1,27 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using ToDoApplication.Web.Data;
+using ToDoApplication.Application.DIServiceConfiguration;
+using ToDoApplication.Domain.Models;
+using ToDoApplication.Infrastructure;
+using ToDoApplication.Infrastructure.DIServiceConfiguration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>();
+
+builder.Services.RegisterServices();
+builder.Services.RegisterRepository();
+builder.Services.RegisterMappers();
+builder.Services.RegisterValidators();
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -24,7 +34,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -40,5 +49,18 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+using var scope = app.Services.CreateScope();
+var dbContext = scope.ServiceProvider.GetService<AppDbContext>();
+
+if (dbContext is not null)
+{
+    var migrations = dbContext.Database.GetPendingMigrations();
+
+    if (migrations.Any())
+    {
+        dbContext?.Database.Migrate();
+    }
+}
 
 app.Run();
