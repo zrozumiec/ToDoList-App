@@ -67,10 +67,13 @@ namespace ToDoApplication.Tests.Repositories
             var countItemsInDatabaseAfter = await this.dbContext.TaskNotes.CountAsync();
 
             // Assert
-            Assert.That(countItemsInDatabase + 1, Is.EqualTo(countItemsInDatabaseAfter));
-            Assert.That(result, Is.EqualTo(notes.Id));
-            Assert.That(getNoteFromDatabase?.Id, Is.EqualTo(notes.Id));
-            Assert.That(getNoteFromDatabase?.Description, Is.EqualTo(notes.Description));
+            Assert.Multiple(() =>
+            {
+                Assert.That(countItemsInDatabase + 1, Is.EqualTo(countItemsInDatabaseAfter));
+                Assert.That(result, Is.EqualTo(notes.Id));
+                Assert.That(getNoteFromDatabase?.Id, Is.EqualTo(notes.Id));
+                Assert.That(getNoteFromDatabase?.Description, Is.EqualTo(notes.Description));
+            });
         }
 
         [Test]
@@ -85,9 +88,12 @@ namespace ToDoApplication.Tests.Repositories
             var countItemsInDatabaseAfter = await this.dbContext.TaskNotes.CountAsync();
 
             // Assert
-            Assert.That(countItemsInDatabase - 1, Is.EqualTo(countItemsInDatabaseAfter));
-            Assert.That(result, Is.EqualTo(getNoteFromDatabase.Id));
-            Assert.Null(this.dbContext.TaskNotes.Find(getNoteFromDatabase.Id));
+            Assert.Multiple(() =>
+            {
+                Assert.That(countItemsInDatabase - 1, Is.EqualTo(countItemsInDatabaseAfter));
+                Assert.That(result, Is.EqualTo(getNoteFromDatabase.Id));
+                Assert.That(this.dbContext.TaskNotes.Find(getNoteFromDatabase.Id), Is.Null);
+            });
         }
 
         [Test]
@@ -119,9 +125,12 @@ namespace ToDoApplication.Tests.Repositories
             var countItemsInDatabaseAfter = await this.dbContext.TaskNotes.CountAsync();
 
             // Assert
-            Assert.That(countItemsInDatabase, Is.EqualTo(countItemsInDatabaseAfter));
-            Assert.That(result, Is.EqualTo(retrievedTaskNotes?.Id));
-            Assert.That(newNote.Description, Is.EqualTo(retrievedTaskNotes?.Description));
+            Assert.Multiple(() =>
+            {
+                Assert.That(countItemsInDatabase, Is.EqualTo(countItemsInDatabaseAfter));
+                Assert.That(result, Is.EqualTo(retrievedTaskNotes?.Id));
+                Assert.That(newNote.Description, Is.EqualTo(retrievedTaskNotes?.Description));
+            });
         }
 
         [Test]
@@ -163,7 +172,7 @@ namespace ToDoApplication.Tests.Repositories
             var result = await this.repository.GetByIdAsync(id);
 
             // Assert
-            Assert.Null(result);
+            Assert.That(result, Is.Null);
         }
     }
 }

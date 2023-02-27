@@ -99,14 +99,17 @@ namespace ToDoApplication.Tests.Repositories
             var countItemsInDatabaseAfter = await this.dbContext.ToDoLists.CountAsync();
 
             // Assert
-            Assert.That(countItemsInDatabase + 1, Is.EqualTo(countItemsInDatabaseAfter));
-            Assert.That(result, Is.EqualTo(toDoList.Id));
-            Assert.That(getToDoListFromDatabase?.Id, Is.EqualTo(toDoList.Id));
-            Assert.That(getToDoListFromDatabase?.Tile, Is.EqualTo(toDoList.Tile));
-            Assert.That(getToDoListFromDatabase?.Description, Is.EqualTo(toDoList.Description));
-            Assert.That(getToDoListFromDatabase?.CreationDate, Is.EqualTo(toDoList.CreationDate));
-            Assert.That(getToDoListFromDatabase?.UserId, Is.EqualTo(toDoList.UserId));
-            Assert.That(getToDoListFromDatabase?.Tasks, Is.EqualTo(toDoList.Tasks));
+            Assert.Multiple(() =>
+            {
+                Assert.That(countItemsInDatabase + 1, Is.EqualTo(countItemsInDatabaseAfter));
+                Assert.That(result, Is.EqualTo(toDoList.Id));
+                Assert.That(getToDoListFromDatabase?.Id, Is.EqualTo(toDoList.Id));
+                Assert.That(getToDoListFromDatabase?.Tile, Is.EqualTo(toDoList.Tile));
+                Assert.That(getToDoListFromDatabase?.Description, Is.EqualTo(toDoList.Description));
+                Assert.That(getToDoListFromDatabase?.CreationDate, Is.EqualTo(toDoList.CreationDate));
+                Assert.That(getToDoListFromDatabase?.UserId, Is.EqualTo(toDoList.UserId));
+                Assert.That(getToDoListFromDatabase?.Tasks, Is.EqualTo(toDoList.Tasks));
+            });
         }
 
         [Test]
@@ -121,9 +124,12 @@ namespace ToDoApplication.Tests.Repositories
             var countItemsInDatabaseAfter = await this.dbContext.ToDoLists.CountAsync();
 
             // Assert
-            Assert.That(countItemsInDatabase - 1, Is.EqualTo(countItemsInDatabaseAfter));
-            Assert.That(result, Is.EqualTo(getToDoListFromDatabase.Id));
-            Assert.Null(this.dbContext.ToDoLists.Find(getToDoListFromDatabase.Id));
+            Assert.Multiple(() =>
+            {
+                Assert.That(countItemsInDatabase - 1, Is.EqualTo(countItemsInDatabaseAfter));
+                Assert.That(result, Is.EqualTo(getToDoListFromDatabase.Id));
+                Assert.That(this.dbContext.ToDoLists.Find(getToDoListFromDatabase.Id), Is.Null);
+            });
         }
 
         [Test]
@@ -157,10 +163,13 @@ namespace ToDoApplication.Tests.Repositories
             var countItemsInDatabaseAfter = await this.dbContext.ToDoLists.CountAsync();
 
             // Assert
-            Assert.That(countItemsInDatabase, Is.EqualTo(countItemsInDatabaseAfter));
-            Assert.That(result, Is.EqualTo(retrievedToDoList?.Id));
-            Assert.That(newToDoList.Tile, Is.EqualTo(retrievedToDoList?.Tile));
-            Assert.That(newToDoList.Description, Is.EqualTo(retrievedToDoList?.Description));
+            Assert.Multiple(() =>
+            {
+                Assert.That(countItemsInDatabase, Is.EqualTo(countItemsInDatabaseAfter));
+                Assert.That(result, Is.EqualTo(retrievedToDoList?.Id));
+                Assert.That(newToDoList.Tile, Is.EqualTo(retrievedToDoList?.Tile));
+                Assert.That(newToDoList.Description, Is.EqualTo(retrievedToDoList?.Description));
+            });
         }
 
         [Test]
@@ -191,11 +200,14 @@ namespace ToDoApplication.Tests.Repositories
             var result = await this.repository.GetByNameAsync(getToDoListFromDatabase.Tile);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Id, Is.EqualTo(getToDoListFromDatabase?.Id));
-            Assert.That(result.Tile, Is.EqualTo(getToDoListFromDatabase?.Tile));
-            Assert.That(result.Description, Is.EqualTo(getToDoListFromDatabase?.Description));
-            Assert.That(result.IsHidden, Is.EqualTo(getToDoListFromDatabase?.IsHidden));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Id, Is.EqualTo(getToDoListFromDatabase?.Id));
+                Assert.That(result.Tile, Is.EqualTo(getToDoListFromDatabase?.Tile));
+                Assert.That(result.Description, Is.EqualTo(getToDoListFromDatabase?.Description));
+                Assert.That(result.IsHidden, Is.EqualTo(getToDoListFromDatabase?.IsHidden));
+            });
         }
 
         [Test]
@@ -208,7 +220,7 @@ namespace ToDoApplication.Tests.Repositories
             var result = await this.repository.GetByNameAsync(name);
 
             // Assert
-            Assert.Null(result);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
@@ -234,7 +246,7 @@ namespace ToDoApplication.Tests.Repositories
             var result = await this.repository.GetByIdAsync(id);
 
             // Assert
-            Assert.Null(result);
+            Assert.That(result, Is.Null);
         }
     }
 }

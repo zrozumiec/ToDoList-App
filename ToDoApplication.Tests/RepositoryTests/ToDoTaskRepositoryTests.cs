@@ -143,18 +143,21 @@ namespace ToDoApplication.Tests.Repositories
             var countItemsInDatabaseAfter = await this.dbContext.ToDoTasks.CountAsync();
 
             // Assert
-            Assert.That(countItemsInDatabase + 1, Is.EqualTo(countItemsInDatabaseAfter));
-            Assert.That(result, Is.EqualTo(toDoTask.Id));
-            Assert.That(getToDoTaskFromDatabase?.Id, Is.EqualTo(toDoTask.Id));
-            Assert.That(getToDoTaskFromDatabase?.Tile, Is.EqualTo(toDoTask.Tile));
-            Assert.That(getToDoTaskFromDatabase?.Description, Is.EqualTo(toDoTask.Description));
-            Assert.That(getToDoTaskFromDatabase?.DueDate, Is.EqualTo(toDoTask.DueDate));
-            Assert.That(getToDoTaskFromDatabase?.Reminder, Is.EqualTo(toDoTask.Reminder));
-            Assert.That(getToDoTaskFromDatabase?.ReminderDate, Is.EqualTo(toDoTask.ReminderDate));
-            Assert.That(getToDoTaskFromDatabase?.Daily, Is.EqualTo(toDoTask.Daily));
-            Assert.That(getToDoTaskFromDatabase?.Important, Is.EqualTo(toDoTask.Important));
-            Assert.That(getToDoTaskFromDatabase?.IsCompleted, Is.EqualTo(toDoTask.IsCompleted));
-            Assert.That(getToDoTaskFromDatabase?.ListId, Is.EqualTo(toDoTask.ListId));
+            Assert.Multiple(() =>
+            {
+                Assert.That(countItemsInDatabase + 1, Is.EqualTo(countItemsInDatabaseAfter));
+                Assert.That(result, Is.EqualTo(toDoTask.Id));
+                Assert.That(getToDoTaskFromDatabase?.Id, Is.EqualTo(toDoTask.Id));
+                Assert.That(getToDoTaskFromDatabase?.Tile, Is.EqualTo(toDoTask.Tile));
+                Assert.That(getToDoTaskFromDatabase?.Description, Is.EqualTo(toDoTask.Description));
+                Assert.That(getToDoTaskFromDatabase?.DueDate, Is.EqualTo(toDoTask.DueDate));
+                Assert.That(getToDoTaskFromDatabase?.Reminder, Is.EqualTo(toDoTask.Reminder));
+                Assert.That(getToDoTaskFromDatabase?.ReminderDate, Is.EqualTo(toDoTask.ReminderDate));
+                Assert.That(getToDoTaskFromDatabase?.Daily, Is.EqualTo(toDoTask.Daily));
+                Assert.That(getToDoTaskFromDatabase?.Important, Is.EqualTo(toDoTask.Important));
+                Assert.That(getToDoTaskFromDatabase?.IsCompleted, Is.EqualTo(toDoTask.IsCompleted));
+                Assert.That(getToDoTaskFromDatabase?.ListId, Is.EqualTo(toDoTask.ListId));
+            });
         }
 
         [Test]
@@ -169,9 +172,12 @@ namespace ToDoApplication.Tests.Repositories
             var countItemsInDatabaseAfter = await this.dbContext.ToDoTasks.CountAsync();
 
             // Assert
-            Assert.That(countItemsInDatabase - 1, Is.EqualTo(countItemsInDatabaseAfter));
-            Assert.That(result, Is.EqualTo(getToDoTaskFromDatabase.Id));
-            Assert.Null(this.dbContext.ToDoTasks.Find(getToDoTaskFromDatabase.Id));
+            Assert.Multiple(() =>
+            {
+                Assert.That(countItemsInDatabase - 1, Is.EqualTo(countItemsInDatabaseAfter));
+                Assert.That(result, Is.EqualTo(getToDoTaskFromDatabase.Id));
+                Assert.That(this.dbContext.ToDoTasks.Find(getToDoTaskFromDatabase.Id), Is.Null);
+            });
         }
 
         [Test]
@@ -210,16 +216,19 @@ namespace ToDoApplication.Tests.Repositories
             var retrievedToDoTask = this.dbContext.ToDoTasks.Find(getToDoTaskFromDatabase.Id);
 
             // Assert
-            Assert.That(countItemsInDatabase, Is.EqualTo(countItemsInDatabaseAfter));
-            Assert.That(result, Is.EqualTo(retrievedToDoTask?.Id));
-            Assert.That(newToDoTask.Tile, Is.EqualTo(retrievedToDoTask?.Tile));
-            Assert.That(newToDoTask.Description, Is.EqualTo(retrievedToDoTask?.Description));
-            Assert.That(newToDoTask.DueDate, Is.EqualTo(retrievedToDoTask?.DueDate));
-            Assert.That(newToDoTask.Reminder, Is.EqualTo(retrievedToDoTask?.Reminder));
-            Assert.That(newToDoTask.ReminderDate, Is.EqualTo(retrievedToDoTask?.ReminderDate));
-            Assert.That(newToDoTask.Daily, Is.EqualTo(retrievedToDoTask?.Daily));
-            Assert.That(newToDoTask.Important, Is.EqualTo(retrievedToDoTask?.Important));
-            Assert.That(newToDoTask.IsCompleted, Is.EqualTo(retrievedToDoTask?.IsCompleted));
+            Assert.Multiple(() =>
+            {
+                Assert.That(countItemsInDatabase, Is.EqualTo(countItemsInDatabaseAfter));
+                Assert.That(result, Is.EqualTo(retrievedToDoTask?.Id));
+                Assert.That(newToDoTask.Tile, Is.EqualTo(retrievedToDoTask?.Tile));
+                Assert.That(newToDoTask.Description, Is.EqualTo(retrievedToDoTask?.Description));
+                Assert.That(newToDoTask.DueDate, Is.EqualTo(retrievedToDoTask?.DueDate));
+                Assert.That(newToDoTask.Reminder, Is.EqualTo(retrievedToDoTask?.Reminder));
+                Assert.That(newToDoTask.ReminderDate, Is.EqualTo(retrievedToDoTask?.ReminderDate));
+                Assert.That(newToDoTask.Daily, Is.EqualTo(retrievedToDoTask?.Daily));
+                Assert.That(newToDoTask.Important, Is.EqualTo(retrievedToDoTask?.Important));
+                Assert.That(newToDoTask.IsCompleted, Is.EqualTo(retrievedToDoTask?.IsCompleted));
+            });
         }
 
         [Test]
@@ -268,7 +277,7 @@ namespace ToDoApplication.Tests.Repositories
             var result = await this.repository.GetByIdAsync(id);
 
             // Assert
-            Assert.Null(result);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
@@ -281,7 +290,7 @@ namespace ToDoApplication.Tests.Repositories
             var result = this.repository.GetAll(id);
 
             // Assert
-            Assert.True(result.Count() == count);
+            Assert.That(result.Count(), Is.EqualTo(count));
         }
     }
 }

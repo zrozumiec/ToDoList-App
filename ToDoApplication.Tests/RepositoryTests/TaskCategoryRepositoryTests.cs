@@ -58,11 +58,14 @@ namespace ToDoApplication.Tests.Repositories
             var countItemsInDatabaseAfter = await this.dbContext.TaskCategories.CountAsync();
 
             // Assert
-            Assert.That(countItemsInDatabase + 1, Is.EqualTo(countItemsInDatabaseAfter));
-            Assert.That(result, Is.EqualTo(category.Id));
-            Assert.That(getCategoryFromDatabase?.Id, Is.EqualTo(category.Id));
-            Assert.That(getCategoryFromDatabase?.Name, Is.EqualTo(category.Name));
-            Assert.That(getCategoryFromDatabase?.Description, Is.EqualTo(category.Description));
+            Assert.Multiple(() =>
+            {
+                Assert.That(countItemsInDatabase + 1, Is.EqualTo(countItemsInDatabaseAfter));
+                Assert.That(result, Is.EqualTo(category.Id));
+                Assert.That(getCategoryFromDatabase?.Id, Is.EqualTo(category.Id));
+                Assert.That(getCategoryFromDatabase?.Name, Is.EqualTo(category.Name));
+                Assert.That(getCategoryFromDatabase?.Description, Is.EqualTo(category.Description));
+            });
         }
 
         [Test]
@@ -77,9 +80,12 @@ namespace ToDoApplication.Tests.Repositories
             var countItemsInDatabaseAfter = await this.dbContext.TaskCategories.CountAsync();
 
             // Assert
-            Assert.That(countItemsInDatabase - 1, Is.EqualTo(countItemsInDatabaseAfter));
-            Assert.That(result, Is.EqualTo(getCategoryFromDatabase.Id));
-            Assert.Null(this.dbContext.TaskCategories.Find(getCategoryFromDatabase.Id));
+            Assert.Multiple(() =>
+            {
+                Assert.That(countItemsInDatabase - 1, Is.EqualTo(countItemsInDatabaseAfter));
+                Assert.That(result, Is.EqualTo(getCategoryFromDatabase.Id));
+                Assert.That(this.dbContext.TaskCategories.Find(getCategoryFromDatabase.Id), Is.Null);
+            });
         }
 
         [Test]
@@ -112,10 +118,13 @@ namespace ToDoApplication.Tests.Repositories
             var countItemsInDatabaseAfter = await this.dbContext.TaskCategories.CountAsync();
 
             // Assert
-            Assert.That(countItemsInDatabase, Is.EqualTo(countItemsInDatabaseAfter));
-            Assert.That(result, Is.EqualTo(retrievedTaskCategory?.Id));
-            Assert.That(newCategory.Name, Is.EqualTo(retrievedTaskCategory?.Name));
-            Assert.That(newCategory.Description, Is.EqualTo(retrievedTaskCategory?.Description));
+            Assert.Multiple(() =>
+            {
+                Assert.That(countItemsInDatabase, Is.EqualTo(countItemsInDatabaseAfter));
+                Assert.That(result, Is.EqualTo(retrievedTaskCategory?.Id));
+                Assert.That(newCategory.Name, Is.EqualTo(retrievedTaskCategory?.Name));
+                Assert.That(newCategory.Description, Is.EqualTo(retrievedTaskCategory?.Description));
+            });
         }
 
         [Test]
@@ -145,10 +154,13 @@ namespace ToDoApplication.Tests.Repositories
             var result = await this.repository.GetByNameAsync(getCategoryFromDatabase.Name);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Id, Is.EqualTo(getCategoryFromDatabase.Id));
-            Assert.That(result.Name, Is.EqualTo(getCategoryFromDatabase.Name));
-            Assert.That(result.Description, Is.EqualTo(getCategoryFromDatabase.Description));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Id, Is.EqualTo(getCategoryFromDatabase.Id));
+                Assert.That(result.Name, Is.EqualTo(getCategoryFromDatabase.Name));
+                Assert.That(result.Description, Is.EqualTo(getCategoryFromDatabase.Description));
+            });
         }
 
         [Test]
@@ -161,7 +173,7 @@ namespace ToDoApplication.Tests.Repositories
             var result = await this.repository.GetByNameAsync(name);
 
             // Assert
-            Assert.Null(result);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
@@ -187,7 +199,7 @@ namespace ToDoApplication.Tests.Repositories
             var result = await this.repository.GetByIdAsync(id);
 
             // Assert
-            Assert.Null(result);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
@@ -224,7 +236,7 @@ namespace ToDoApplication.Tests.Repositories
             var result = await this.repository.CheckIfExistInDataBaseWithSameNameAsync(cat.Name);
 
             // Assert
-            Assert.Null(result);
+            Assert.That(result, Is.Null);
         }
     }
 }

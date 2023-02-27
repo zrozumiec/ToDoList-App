@@ -72,11 +72,14 @@ namespace ToDoApplication.Tests.Repositories
             var countItemsInDatabaseAfter = await this.dbContext.TaskStatuses.CountAsync();
 
             // Assert
-            Assert.That(countItemsInDatabase + 1, Is.EqualTo(countItemsInDatabaseAfter));
-            Assert.That(result, Is.EqualTo(status.Id));
-            Assert.That(getStatusFromDatabase?.Id, Is.EqualTo(status.Id));
-            Assert.That(getStatusFromDatabase?.Name, Is.EqualTo(status.Name));
-            Assert.That(getStatusFromDatabase?.Description, Is.EqualTo(status.Description));
+            Assert.Multiple(() =>
+            {
+                Assert.That(countItemsInDatabase + 1, Is.EqualTo(countItemsInDatabaseAfter));
+                Assert.That(result, Is.EqualTo(status.Id));
+                Assert.That(getStatusFromDatabase?.Id, Is.EqualTo(status.Id));
+                Assert.That(getStatusFromDatabase?.Name, Is.EqualTo(status.Name));
+                Assert.That(getStatusFromDatabase?.Description, Is.EqualTo(status.Description));
+            });
         }
 
         [Test]
@@ -91,9 +94,12 @@ namespace ToDoApplication.Tests.Repositories
             var countItemsInDatabaseAfter = await this.dbContext.TaskStatuses.CountAsync();
 
             // Assert
-            Assert.That(countItemsInDatabase - 1, Is.EqualTo(countItemsInDatabaseAfter));
-            Assert.That(result, Is.EqualTo(getStatusFromDatabase.Id));
-            Assert.Null(this.dbContext.TaskStatuses.Find(getStatusFromDatabase.Id));
+            Assert.Multiple(() =>
+            {
+                Assert.That(countItemsInDatabase - 1, Is.EqualTo(countItemsInDatabaseAfter));
+                Assert.That(result, Is.EqualTo(getStatusFromDatabase.Id));
+                Assert.That(this.dbContext.TaskStatuses.Find(getStatusFromDatabase.Id), Is.Null);
+            });
         }
 
         [Test]
@@ -126,10 +132,13 @@ namespace ToDoApplication.Tests.Repositories
             var countItemsInDatabaseAfter = await this.dbContext.TaskStatuses.CountAsync();
 
             // Assert
-            Assert.That(countItemsInDatabase, Is.EqualTo(countItemsInDatabaseAfter));
-            Assert.That(result, Is.EqualTo(retrievedStatusCategory?.Id));
-            Assert.That(newStatus.Name, Is.EqualTo(retrievedStatusCategory?.Name));
-            Assert.That(newStatus.Description, Is.EqualTo(retrievedStatusCategory?.Description));
+            Assert.Multiple(() =>
+            {
+                Assert.That(countItemsInDatabase, Is.EqualTo(countItemsInDatabaseAfter));
+                Assert.That(result, Is.EqualTo(retrievedStatusCategory?.Id));
+                Assert.That(newStatus.Name, Is.EqualTo(retrievedStatusCategory?.Name));
+                Assert.That(newStatus.Description, Is.EqualTo(retrievedStatusCategory?.Description));
+            });
         }
 
         [Test]
@@ -159,10 +168,13 @@ namespace ToDoApplication.Tests.Repositories
             var result = await this.repository.GetByNameAsync(getStatusFromDatabase.Name);
 
             // Assert
-            Assert.NotNull(result);
-            Assert.That(result.Id, Is.EqualTo(getStatusFromDatabase.Id));
-            Assert.That(result.Name, Is.EqualTo(getStatusFromDatabase.Name));
-            Assert.That(result.Description, Is.EqualTo(getStatusFromDatabase.Description));
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result.Id, Is.EqualTo(getStatusFromDatabase.Id));
+                Assert.That(result.Name, Is.EqualTo(getStatusFromDatabase.Name));
+                Assert.That(result.Description, Is.EqualTo(getStatusFromDatabase.Description));
+            });
         }
 
         [Test]
@@ -175,7 +187,7 @@ namespace ToDoApplication.Tests.Repositories
             var result = await this.repository.GetByNameAsync(name);
 
             // Assert
-            Assert.Null(result);
+            Assert.That(result, Is.Null);
         }
 
         [Test]
@@ -201,7 +213,7 @@ namespace ToDoApplication.Tests.Repositories
             var result = await this.repository.GetByIdAsync(id);
 
             // Assert
-            Assert.Null(result);
+            Assert.That(result, Is.Null);
         }
     }
 }
