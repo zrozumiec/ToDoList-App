@@ -17,7 +17,6 @@ namespace ToDoApplication.Tests.Services
         private List<TaskNotesDto> listOfNotes2Dto;
         private TaskNotes note;
         private TaskNotes noteNewData;
-        private List<TaskNotes> listOfNotes;
         private List<TaskNotes> listOfNotes2;
 
         [SetUp]
@@ -45,11 +44,6 @@ namespace ToDoApplication.Tests.Services
             {
                 Id = 1,
                 Description = "taskNote1 New data",
-            };
-
-            this.listOfNotes = new List<TaskNotes>()
-            {
-                this.note,
             };
 
             this.listOfNotesDto = new List<TaskNotesDto>()
@@ -227,7 +221,7 @@ namespace ToDoApplication.Tests.Services
 
             // Assert
             this.mockRepository.Verify(x => x.GetByIdAsync(It.IsAny<int>()), Times.Once());
-            this.Compare(result, this.note);
+            Compare(result, this.note);
         }
 
         [Test]
@@ -265,11 +259,11 @@ namespace ToDoApplication.Tests.Services
 
             for (int i = 0; i < result.Count; i++)
             {
-                this.Compare(result[i], this.listOfNotes2[i]);
+                Compare(result[i], this.listOfNotes2[i]);
             }
         }
 
-        private void Compare(TaskNotesDto notesDto, TaskNotes notes)
+        private static void Compare(TaskNotesDto notesDto, TaskNotes notes)
         {
             Assert.Multiple(() =>
             {

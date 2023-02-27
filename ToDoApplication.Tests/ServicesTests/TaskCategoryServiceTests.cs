@@ -18,7 +18,6 @@ namespace ToDoApplication.Tests.Services
         private List<TaskCategoryDto> listOfCategories2Dto;
         private TaskCategory category;
         private TaskCategory categoryNewData;
-        private List<TaskCategory> listOfCategories;
         private List<TaskCategory> listOfCategories2;
 
         [SetUp]
@@ -57,11 +56,6 @@ namespace ToDoApplication.Tests.Services
                 Id = 15,
                 Name = "taskCategory1",
                 Description = "hjhjh"
-            };
-
-            this.listOfCategories = new List<TaskCategory>()
-            {
-                this.category,
             };
 
             this.listOfCategoriesDto = new List<TaskCategoryDto>()
@@ -278,7 +272,7 @@ namespace ToDoApplication.Tests.Services
 
             // Assert
             this.mockRepository.Verify(x => x.GetByIdAsync(It.IsAny<int>()), Times.Once());
-            this.Compare(result, this.category);
+            Compare(result, this.category);
         }
 
         [Test]
@@ -316,11 +310,11 @@ namespace ToDoApplication.Tests.Services
 
             for (int i = 0; i < result.Count; i++)
             {
-                this.Compare(result[i], this.listOfCategories2[i]);
+                Compare(result[i], this.listOfCategories2[i]);
             }
         }
 
-        private void Compare(TaskCategoryDto categoryDto, TaskCategory category)
+        private static void Compare(TaskCategoryDto categoryDto, TaskCategory category)
         {
             Assert.Multiple(() =>
             {

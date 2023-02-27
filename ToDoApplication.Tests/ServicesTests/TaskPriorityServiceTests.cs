@@ -19,7 +19,6 @@ namespace ToDoApplication.Tests.Services
         private List<TaskPriorityDto> listOfPrioriteis2Dto;
         private TaskPriority priority;
         private TaskPriority priorityNewData;
-        private List<TaskPriority> listOfPrioriteis;
         private List<TaskPriority> listOfPrioriteis2;
 
         [SetUp]
@@ -53,11 +52,6 @@ namespace ToDoApplication.Tests.Services
             {
                 Id = 15,
                 Name = "priority",
-            };
-
-            this.listOfPrioriteis = new List<TaskPriority>()
-            {
-                this.priority,
             };
 
             this.listOfPrioriteisDto = new List<TaskPriorityDto>()
@@ -278,7 +272,7 @@ namespace ToDoApplication.Tests.Services
 
             // Assert
             this.mockRepository.Verify(x => x.GetByIdAsync(It.IsAny<int>()), Times.Once());
-            this.Compare(result, this.priority);
+            Compare(result, this.priority);
         }
 
         [Test]
@@ -318,11 +312,11 @@ namespace ToDoApplication.Tests.Services
 
             for (int i = 0; i < result.Count; i++)
             {
-                this.Compare(result[i], this.listOfPrioriteis2[i]);
+                Compare(result[i], this.listOfPrioriteis2[i]);
             }
         }
 
-        private void Compare(TaskPriorityDto priorityDto, TaskPriority priority)
+        private static void Compare(TaskPriorityDto priorityDto, TaskPriority priority)
         {
             Assert.Multiple(() =>
             {
