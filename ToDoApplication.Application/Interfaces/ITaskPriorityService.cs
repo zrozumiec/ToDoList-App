@@ -10,21 +10,21 @@ namespace ToDoApplication.Application.Interfaces
         /// <summary>
         /// Async method to add new priority.
         /// </summary>
-        /// <param name="priorityDto">Priority Dto.</param>
+        /// <param name="taskPriorityDto">Priority Dto.</param>
         /// <returns>Added priority id.</returns>
         /// <exception cref="ArgumentNullException">Throws when priority to add is null.</exception>
         /// <exception cref="ArgumentException">Throws when priority to add already exist in database.</exception>
-        Task<int> AddAsync(TaskPriorityDto priorityDto);
+        Task<int> AddAsync(TaskPriorityDto taskPriorityDto);
 
         /// <summary>
         /// Async method to update existing priority.
         /// </summary>
         /// <param name="id">Id of priority to update.</param>
-        /// <param name="priorityDto">New priority Dto data.</param>
+        /// <param name="taskPriorityDto">New priority Dto data.</param>
         /// <returns>Updated priority id.</returns>
         /// <exception cref="ArgumentNullException">Throws when new priority data is null.</exception>
         /// <exception cref="ArgumentException">Throws when priority with given id doesn't exist.</exception>
-        Task<int> UpdateAsync(int id, TaskPriorityDto priorityDto);
+        Task<int> UpdateAsync(int id, TaskPriorityDto taskPriorityDto);
 
         /// <summary>
         /// Async method to delete existing priority.
