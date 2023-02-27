@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
+#pragma warning disable SA1118 // Parameter should not span multiple lines
+#pragma warning disable SA1601 // Partial elements should be documented
+#pragma warning disable SA1600 // Elements should be documented
 
 namespace ToDoApplication.Infrastructure.Migrations
 {
