@@ -45,6 +45,6 @@ namespace ToDoApplication.Application.Interfaces
         /// Returns all notes.
         /// </summary>
         /// <returns>All notes.</returns>
-        IEnumerable<TaskNotesDto> GetAll();
+        IEnumerable<TaskNotesDto> GetAll(int id);
     }
 }

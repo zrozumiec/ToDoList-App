@@ -33,5 +33,11 @@ namespace ToDoApplication.Infrastructure.Repositories
 
             return taskNotesInDatabase.Id;
         }
+
+        /// <inheritdoc/>
+        public IEnumerable<TaskNotes> GetAll(int taskId)
+        {
+            return this.DbSet.Where(x => x.TaskId == taskId);
+        }
     }
 }

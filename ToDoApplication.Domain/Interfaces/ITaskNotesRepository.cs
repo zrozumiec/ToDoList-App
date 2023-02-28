@@ -15,5 +15,12 @@ namespace ToDoApplication.Domain.Interfaces
         /// <param name="newTaskNotes">New task notes data.</param>
         /// <returns>Updated task notes id.</returns>
         new Task<int> UpdateAsync(int id, TaskNotes newTaskNotes);
+
+        /// <summary>
+        /// Gets all task notes.
+        /// </summary>
+        /// <param name="taskId">Task id.</param>
+        /// <returns>Task notes.</returns>
+        IEnumerable<TaskNotes> GetAll(int taskId);
     }
 }
