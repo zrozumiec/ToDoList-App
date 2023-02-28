@@ -105,7 +105,7 @@ namespace ToDoApplication.Application.Services
         /// <summary>
         /// Async method to add item.
         /// </summary>
-        /// <param name="itemDto">Item to add.</param>
+        /// <param name="statusDto">Item to add.</param>
         /// <returns>Added item id.</returns>
         private async Task<int> AddInternalAsync(TaskStatusesDto statusDto)
         {
@@ -140,7 +140,7 @@ namespace ToDoApplication.Application.Services
         /// Async method to update item.
         /// </summary>
         /// <param name="id">Item id.</param>
-        /// <param name="itemDto">New item data.</param>
+        /// <param name="statusDto">New item data.</param>
         /// <returns>Updated item id.</returns>
         private async Task<int> UpdateInternalAsync(int id, TaskStatusesDto statusDto)
         {
