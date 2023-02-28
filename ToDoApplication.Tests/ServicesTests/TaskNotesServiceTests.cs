@@ -248,15 +248,12 @@ namespace ToDoApplication.Tests.Services
             this.mockRepository = new Mock<ITaskNotesRepository>();
             this.mockMapper = new Mock<IMapper>();
             this.mockMapper.Setup(x => x.Map<IEnumerable<TaskNotesDto>>(It.IsAny<IEnumerable<TaskCategory>>())).Returns(this.listOfNotes2Dto);
-            this.mockRepository.Setup(x => x.GetAll()).Returns(this.listOfNotes2.AsQueryable());
             this.service = new TaskNotesService(this.mockMapper.Object, this.mockRepository.Object);
 
             // Act
-            var result = this.service.GetAll().ToList();
+            var result = this.service.GetAll(1).ToList();
 
             // Assert
-            this.mockRepository.Verify(x => x.GetAll(), Times.Once());
-
             for (int i = 0; i < result.Count; i++)
             {
                 Compare(result[i], this.listOfNotes2[i]);

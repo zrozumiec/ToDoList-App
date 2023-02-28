@@ -16,10 +16,5 @@ namespace ToDoApplication.Domain.Models
         /// Gets or sets associated task Id.
         /// </summary>
         public int TaskId { get; set; }
-
-        /// <summary>
-        /// Gets or sets associated task.
-        /// </summary>
-        public virtual ToDoTask ToDoTask { get; set; } = new ToDoTask();
     }
 }

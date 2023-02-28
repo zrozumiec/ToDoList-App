@@ -2,10 +2,13 @@
 
 @{
     ViewData["Title"] = "Index";
+    var i = 1;
 }
 
+<h1 style="text-align:center">Tasks categories</h1>
+
 <p>
-    <a asp-action="Add">Create New</a>
+    <a class="btn btn-primary btn-sm" asp-action="Add">Create New</a>
 </p>
 
 <div>
@@ -29,7 +32,7 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(c => category.Id)
+                        @i
                     </td>
                     <td>
                         @Html.DisplayFor(c => category.Name)
@@ -38,11 +41,18 @@
                         @Html.DisplayFor(c => category.Description)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new {id = category.Id}) |
-                        @Html.ActionLink("Details", "Details", new {id = category.Id}) |
-                        @Html.ActionLink("Delete", "Delete", new {id = category.Id}, new { onclick = "return confirm('Do you want to delete this row?');" }) |
+                        <a href="@Url.Action("Edit", "TaskCategory", new { id = category.Id })" class="btn btn-primary btn-sm">
+                            <i class="fa fa-mobile"></i> Edit
+                        </a>
+                        <a href="@Url.Action("Details", "TaskCategory", new { id = category.Id })" class="btn btn-primary btn-sm">
+                            <i class="fa fa-mobile"></i> Details
+                        </a>
+                        <a onclick="return confirm('Do you want to delete this row?')" href="@Url.Action("Delete", "TaskCategory", new { id = category.Id })" class="btn btn-primary btn-sm">
+                            <i class="fa fa-mobile"></i> Delete
+                        </a>
                     </td>
                 </tr>
+                i++;
             }
         </tbody>
     </table>

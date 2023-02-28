@@ -11,10 +11,5 @@ namespace ToDoApplication.Application.DTOs
         /// Gets or sets associated task Id.
         /// </summary>
         public int TaskId { get; set; }
-
-        /// <summary>
-        /// Gets or sets associated task.
-        /// </summary>
-        public virtual ToDoTaskDto ToDoTask { get; set; } = new ToDoTaskDto();
     }
 }

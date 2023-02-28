@@ -9,7 +9,7 @@ namespace ToDoApplication.Application.Validators
     /// </summary>
     public class TaskStatusesValidator : AbstractValidator<TaskStatusesDto>
     {
-        private readonly Regex regEx = new (@"^[a-zA-Z\s]*$");
+        private readonly Regex regEx = new(@"^[a-zA-Z\s]*$");
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TaskStatusesValidator"/> class.
@@ -23,7 +23,8 @@ namespace ToDoApplication.Application.Validators
                 .Matches(this.regEx).WithMessage("Priority name can contains only characters.");
 
             this.RuleFor(x => x.Description)
-                .Empty();
+                .NotNull()
+                .NotEmpty();
         }
     }
 }

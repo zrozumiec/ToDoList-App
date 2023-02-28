@@ -4,15 +4,22 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>ToDo lists</h1>
+<style>
+    .checkbox {
+        float: right;
+    }
+</style>
+
+
+<h1 style="text-align:center">Lists with tasks</h1>
 
 <p>
-    <a asp-action="Add">Create New</a>
+    <a asp-action="Add" class="btn btn-primary btn-sm">Create New</a>
 
-    <div class="form-check form-check-inline">
+    <div class="form-check form-check-inline checkbox">
         <label class="control-label">Show all</label>
         <input class="form-check-input" type="checkbox" checked=@Model.ShowAll ? "checked" : "" onclick="window.location='@Url.Action("Index", "ToDoList", new { showAll = !Model.ShowAll })'" />
     </div>
 </p>
 
-<partial name = "_ListItems" model="@Model" />
+<partial name="_ListOfAllItems" model="@Model" />

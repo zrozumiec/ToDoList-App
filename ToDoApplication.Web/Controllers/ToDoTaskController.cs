@@ -19,6 +19,7 @@ namespace ToDoApplication.Web.Controllers
         private readonly ITaskCategoryService categoryService;
         private readonly ITaskPriorityService priorityService;
         private readonly IToDoListService toDoListService;
+        private readonly ITaskNotesService taskNotesService;
         private readonly IValidator<ToDoTaskDto> validator;
         private readonly UserManager<ApplicationUser> userManager;
 
@@ -28,6 +29,7 @@ namespace ToDoApplication.Web.Controllers
             ITaskCategoryService categoryService,
             ITaskPriorityService priorityService,
             IToDoListService toDoListService,
+            ITaskNotesService taskNotesService,
             IValidator<ToDoTaskDto> validator,
             UserManager<ApplicationUser> userManager)
         {
@@ -36,6 +38,7 @@ namespace ToDoApplication.Web.Controllers
             this.categoryService = categoryService;
             this.priorityService = priorityService;
             this.toDoListService = toDoListService;
+            this.taskNotesService = taskNotesService;
             this.validator = validator;
             this.userManager = userManager;
         }
@@ -86,6 +89,8 @@ namespace ToDoApplication.Web.Controllers
                 task.Category = await this.categoryService.GetByIdAsync(task.CategoryId);
                 task.Status = await this.statusService.GetByIdAsync(task.StatusId);
                 task.Priority = await this.priorityService.GetByIdAsync(task.PriorityId);
+                var listOfNotes = this.taskNotesService.GetAll(task.Id);
+                task.NumberOfNotes = listOfNotes.Count();
             }
 
             return this.View(listWithTasks);

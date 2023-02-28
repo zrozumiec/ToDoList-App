@@ -1,0 +1,30 @@
+﻿@model TaskNoteDetailVM;
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<table class="table table-sm table-bordered table-striped" aria-describedby="TaskNoteDetails">
+    <tbody>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.TaskNote.Id)
+            </th>
+            <td>
+                @Model.TaskNote.Id
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => Model.TaskNote.Name)
+            </th>
+            <td>
+                @Model.TaskNote.Name
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div>
+    <a class="btn btn-primary btn-sm" asp-action="Index" asp-route-taskId="@Model.TaskNote.TaskId">Back to List</a>
+</div>

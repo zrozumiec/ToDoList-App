@@ -1,0 +1,49 @@
+﻿@model TaskWithNotesVM;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 style="text-align:center">Task notes</h1>
+
+<p>
+    <a class="btn btn-primary btn-sm" asp-action="Add" asp-route-taskId="@Model.TaskId">Create New</a>
+</p>
+
+<div>
+    <table class="table table-hover table-responsive" aria-describedby="Notes">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Name
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var note in Model.TaskNotes)
+            {
+                <tr class="table-light" )">
+                    <td>
+                        @Html.DisplayFor(c => note.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(c => note.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new {id = note.Id, taskId = Model.TaskId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = note.Id }, new { onclick = "return confirm('Do you want to delete this row?');" }) <text> | </text>
+                        @Html.ActionLink("Details", "Details", new {id = note.Id, taskId = Model.TaskId })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <a class="btn btn-secondary" asp-controller="Home" asp-action="Index">Back</a>
+</div>
