@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Moq;
 using ToDoApplication.Application.DTOs;
+using ToDoApplication.Application.Interfaces;
 using ToDoApplication.Application.Services;
 using ToDoApplication.Domain.Interfaces;
 
@@ -8,6 +9,7 @@ namespace ToDoApplication.Tests.Services
 {
     public class ToDoListServiceTests
     {
+        private readonly Mock<IToDoTaskService> taskService = new ();
         private Mock<IToDoListRepository> mockRepository = new ();
         private Mock<IMapper> mockMapper = new ();
         private ToDoListService? service;
@@ -166,7 +168,7 @@ namespace ToDoApplication.Tests.Services
 
             this.mockRepository.Setup(x => x.AddAsync(It.IsAny<ToDoList>())).ReturnsAsync(this.listDto.Id);
 
-            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object);
+            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object, this.taskService.Object);
 
             // Act
             var result = await this.service.AddAsync(this.listDto);
@@ -183,7 +185,7 @@ namespace ToDoApplication.Tests.Services
             ToDoListDto? listDtoNull = null;
             this.mockRepository = new Mock<IToDoListRepository>();
             this.mockMapper = new Mock<IMapper>();
-            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object);
+            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object, this.taskService.Object);
 
             // Act
             var exception = Assert.ThrowsAsync<ArgumentNullException>(
@@ -206,7 +208,7 @@ namespace ToDoApplication.Tests.Services
             this.mockRepository.Setup(x => x.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(this.list);
             this.mockRepository.Setup(x => x.DeleteAsync(It.IsAny<int>())).ReturnsAsync(this.listDto.Id);
 
-            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object);
+            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object, this.taskService.Object);
 
             // Act
             var result = await this.service.DeleteAsync(this.listDto.Id);
@@ -227,7 +229,7 @@ namespace ToDoApplication.Tests.Services
             this.mockMapper = new Mock<IMapper>();
             this.mockRepository.Setup(x => x.GetByIdAsync(It.IsAny<int>())).ReturnsAsync((ToDoList)null!);
 
-            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object);
+            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object, this.taskService.Object);
 
             // Act & Assert
             var ex = Assert.ThrowsAsync<ArgumentException>(() => this.service.DeleteAsync(id));
@@ -249,7 +251,7 @@ namespace ToDoApplication.Tests.Services
             this.mockRepository.Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<ToDoList>())).ReturnsAsync(this.list.Id);
             this.mockRepository.Setup(x => x.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(this.list);
 
-            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object);
+            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object, this.taskService.Object);
             var result = await this.service.UpdateAsync(this.list.Id, this.listNewDataDto);
 
             // Assert
@@ -268,7 +270,7 @@ namespace ToDoApplication.Tests.Services
             this.mockMapper.Setup(x => x.Map<ToDoListDto>(It.IsAny<ToDoList>())).Returns(this.listNewDataDto);
             this.mockRepository.Setup(x => x.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(this.listNewData);
             this.mockRepository.Setup(x => x.CheckIfExistInDataBaseWithSameNameAsync(It.IsAny<string>())).ReturnsAsync(this.list);
-            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object);
+            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object, this.taskService.Object);
 
             // Act
             var exception = Assert.ThrowsAsync<ArgumentException>(() => this.service.UpdateAsync(this.list.Id, this.listDto));
@@ -287,7 +289,7 @@ namespace ToDoApplication.Tests.Services
             ToDoListDto? listDtoNull = null;
             this.mockRepository = new Mock<IToDoListRepository>();
             this.mockMapper = new Mock<IMapper>();
-            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object);
+            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object, this.taskService.Object);
 
             // Act
             var exception = Assert.ThrowsAsync<ArgumentNullException>(
@@ -308,7 +310,7 @@ namespace ToDoApplication.Tests.Services
             this.mockMapper.Setup(x => x.Map<ToDoList>(It.IsAny<ToDoListDto>())).Returns(this.list);
             this.mockMapper.Setup(x => x.Map<ToDoListDto>(It.IsAny<ToDoList>())).Returns((ToDoListDto)null!);
             this.mockRepository.Setup(x => x.GetByIdAsync(It.IsAny<int>())).ReturnsAsync((ToDoList)null!);
-            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object);
+            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object, this.taskService.Object);
 
             // Act
             var exception = Assert.ThrowsAsync<ArgumentException>(() => this.service.UpdateAsync(this.listDto.Id, this.listDto));
@@ -329,7 +331,7 @@ namespace ToDoApplication.Tests.Services
             this.mockMapper.Setup(x => x.Map<ToDoList>(It.IsAny<ToDoListDto>())).Returns(this.list);
             this.mockMapper.Setup(x => x.Map<ToDoListDto>(It.IsAny<ToDoList>())).Returns(this.listDto);
             this.mockRepository.Setup(x => x.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(this.list);
-            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object);
+            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object, this.taskService.Object);
 
             // Act
             var result = await this.service.GetByIdAsync(this.list.Id);
@@ -347,7 +349,7 @@ namespace ToDoApplication.Tests.Services
             this.mockMapper = new Mock<IMapper>();
             this.mockMapper.Setup(x => x.Map<ToDoList>(It.IsAny<ToDoListDto>())).Returns((ToDoList)null!);
             this.mockMapper.Setup(x => x.Map<ToDoListDto>(It.IsAny<ToDoList>())).Returns((ToDoListDto)null!);
-            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object);
+            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object, this.taskService.Object);
 
             // Act
             var exception = Assert.ThrowsAsync<ArgumentException>(() => this.service.GetByIdAsync(this.listDto.Id));
@@ -366,7 +368,7 @@ namespace ToDoApplication.Tests.Services
             this.mockMapper = new Mock<IMapper>();
             this.mockMapper.Setup(x => x.Map<IEnumerable<ToDoListDto>>(It.IsAny<IEnumerable<ToDoList>>())).Returns(this.listOfToDoList2Dto);
             this.mockRepository.Setup(x => x.GetAll()).Returns(this.listOfToDoList2.AsQueryable());
-            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object);
+            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object, this.taskService.Object);
 
             // Act
             var result = this.service.GetAll().ToList();
@@ -393,7 +395,7 @@ namespace ToDoApplication.Tests.Services
             this.mockRepository.Setup(x => x.UpdateAsync(It.IsAny<int>(), It.IsAny<ToDoList>())).ReturnsAsync(this.list.Id);
             this.mockRepository.Setup(x => x.GetByIdAsync(It.IsAny<int>())).ReturnsAsync(this.list);
 
-            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object);
+            this.service = new ToDoListService(this.mockMapper.Object, this.mockRepository.Object, this.taskService.Object);
             var result = await this.service.ChangeVisibility(this.list.Id, false);
 
             // Assert

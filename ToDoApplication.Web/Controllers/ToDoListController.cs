@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ToDoApplication.Application.DTOs;
 using ToDoApplication.Application.Interfaces;
+using ToDoApplication.Domain.Interfaces;
 using ToDoApplication.Domain.Models;
+using ToDoApplication.Web.Models;
 using ToDoApplication.Web.Models.ViewModels;
 
 namespace ToDoApplication.Web.Controllers
@@ -17,10 +19,12 @@ namespace ToDoApplication.Web.Controllers
         private readonly IToDoTaskService toDoTaskService;
         private readonly IValidator<ToDoListDto> validator;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IToDoListRepository toDoListRepository;
 
         public ToDoListController(
             IToDoListService toDoListService,
             IToDoTaskService toDoTaskService,
+            IToDoListRepository toDoListRepository,
             IValidator<ToDoListDto> validator,
             UserManager<ApplicationUser> userManager)
         {
@@ -28,6 +32,7 @@ namespace ToDoApplication.Web.Controllers
             this.toDoTaskService = toDoTaskService;
             this.validator = validator;
             this.userManager = userManager;
+            this.toDoListRepository = toDoListRepository;
         }
 
         [Route("ToDoList/{showAll?}")]
@@ -37,14 +42,14 @@ namespace ToDoApplication.Web.Controllers
             var userId = this.userManager.GetUserId(this.HttpContext.User);
 
             lists.ShowAll = showAll;
+
             lists.ToDoLists = this.toDoListService.GetAll().Where(x => x.UserId == userId);
+            CountDefaultListItems.FillNumberOfTasks(userId, lists, this.toDoListService);
 
             if (!showAll)
             {
                 lists.ToDoLists = lists.ToDoLists.Where(x => !x.IsHidden);
             }
-
-            this.toDoTaskService.FillListTasks(lists.ToDoLists);
 
             return this.View(lists);
         }
@@ -124,6 +129,14 @@ namespace ToDoApplication.Web.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             await this.toDoListService.DeleteAsync(id);
+
+            return this.RedirectToAction("Index");
+        }
+
+        [Route("ToDoList/Copy/{listId:int}")]
+        public async Task<IActionResult> Copy(int listId)
+        {
+            await this.toDoListRepository.CopyList(listId);
 
             return this.RedirectToAction("Index");
         }

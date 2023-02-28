@@ -1,4 +1,4 @@
-﻿@model CreateTaskViewModel
+﻿@model CreateTaskVM
 
 @{
     ViewData["Title"] = "Add";
@@ -36,13 +36,19 @@
             <label asp-for="ToDoTask.DueDate" class="control-label"></label>
             <div id='flatpickrcontainerDueDate'>
                 <input asp-for="ToDoTask.DueDate" type="text" placeholder="Select Date.." data-input>
-                <span asp-validation-for="ToDoTask.DueDate" class="text-danger"></span>
                 <button type="button" class="btn btn-default" title="toggle" data-toggle>
                     <i class="bi bi-calendar-date fa-4x"></i>
                 </button>
                 <button type="button" class="btn btn-default btn-sm" title="clear" data-clear>
                     <i class="bi bi-x-square fa-4x"></i>
                 </button>
+                @if (Model.ToDoTask.DueDate < Model.ToDoTask.CreationDate)
+                {
+                    <br />
+                    <span asp-validation-for="ToDoTask.DueDate" class="text-danger">
+                        Due date must be higher than @DateTimeOffset.Now.ToString("dd-MM-yyyy HH:mm")
+                    </span>
+                }
             </div>
             <div class="form-check form-switch">
                 <label asp-for="ToDoTask.Reminder" class="form-check-label" for="flexSwitchCheckDefault">Reminder</label>
@@ -58,6 +64,13 @@
                 <button type="button" class="btn btn-default btn-sm" title="clear" data-clear>
                     <i class="bi bi-x-square fa-4x"></i>
                 </button>
+                @if (Model.ToDoTask.Reminder && (Model.ToDoTask.ReminderDate < Model.ToDoTask.CreationDate))
+                {
+                    <br />
+                    <span asp-validation-for="ToDoTask.Reminder" class="text-danger">
+                        Reminder date must be higher than @DateTimeOffset.Now.ToString("dd-MM-yyyy HH:mm")
+                    </span>
+                }
             </div>
             <div class="form-check form-check-inline">
                 <label asp-for="ToDoTask.Daily" class="control-label"></label>

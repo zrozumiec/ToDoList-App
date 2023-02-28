@@ -18,6 +18,7 @@ namespace ToDoApplication.Tests.Services
         private ToDoTask toDoTask;
         private ToDoTask toDoTaskNewData;
         private List<ToDoTask> listOfToDoTasks2;
+        private List<ToDoListDto> listOfToDoLists;
 
         private static IEnumerable<TestCaseData> CheckIfReminderTimeOccurs
         {
@@ -115,13 +116,33 @@ namespace ToDoApplication.Tests.Services
                     Id = 1,
                     Name = "2",
                     ListId = 2,
+                    CreationDate = new DateTimeOffset(new DateTime(2023, 02, 27)),
+                    DueDate = new DateTimeOffset(new DateTime(2023, 02, 28))
                 },
                 new ToDoTaskDto()
                 {
                     Id = 1,
                     Name = "2",
                     ListId = 4,
+                    CreationDate = new DateTimeOffset(new DateTime(2023, 02, 27)),
+                    DueDate = new DateTimeOffset(new DateTime(2023, 03, 28)),
+                }
+            };
+
+            this.listOfToDoLists = new List<ToDoListDto>()
+            {
+                new ToDoListDto()
+                {
+                    Id = 1,
+                    Name = "2",
+                    Tasks = this.listOfToDoTasks2Dto,
                 },
+                new ToDoListDto()
+                {
+                    Id = 1,
+                    Name = "2",
+                    Tasks = this.listOfToDoTasksDto,
+                }
             };
         }
 
@@ -489,16 +510,19 @@ namespace ToDoApplication.Tests.Services
         public void GetTaskForToday_ValidCall()
         {
             // Arrange
+            var dueDateExpected = new DateTimeOffset(new DateTime(2023, 02, 28));
             this.mockRepository = new Mock<IToDoTaskRepository>();
             this.mockMapper = new Mock<IMapper>();
-            this.mockRepository.Setup(x => x.GetAll()).Returns(this.listOfToDoTasks2.AsQueryable());
             this.service = new ToDoTaskService(this.mockMapper.Object, this.mockRepository.Object);
 
             // Act
-            this.service.GetTaskForToday().ToList();
+            var result = this.service.GetTaskForToday(this.listOfToDoLists).ToList();
 
             // Assert
-            this.mockRepository.Verify(x => x.GetAll(), Times.Once());
+            foreach (var task in result)
+            {
+                Assert.That(task.DueDate, Is.LessThanOrEqualTo(dueDateExpected));
+            }
         }
 
         [Test]

@@ -4,6 +4,7 @@ using ToDoApplication.Application.DIServiceConfiguration;
 using ToDoApplication.Domain.Models;
 using ToDoApplication.Infrastructure;
 using ToDoApplication.Infrastructure.DIServiceConfiguration;
+using ToDoApplication.Web.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,7 @@ builder.Services.RegisterServices();
 builder.Services.RegisterRepository();
 builder.Services.RegisterMappers();
 builder.Services.RegisterValidators();
+builder.Services.AddScoped<Reminder, Reminder>();
 
 builder.Services.AddControllersWithViews();
 

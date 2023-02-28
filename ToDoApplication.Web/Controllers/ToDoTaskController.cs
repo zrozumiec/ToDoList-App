@@ -1,10 +1,12 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using ToDoApplication.Application.DTOs;
 using ToDoApplication.Application.Interfaces;
+using ToDoApplication.Domain.Models;
+using ToDoApplication.Web.Models;
 using ToDoApplication.Web.Models.ViewModels;
 
 namespace ToDoApplication.Web.Controllers
@@ -18,6 +20,7 @@ namespace ToDoApplication.Web.Controllers
         private readonly ITaskPriorityService priorityService;
         private readonly IToDoListService toDoListService;
         private readonly IValidator<ToDoTaskDto> validator;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public ToDoTaskController(
             IToDoTaskService toDoTaskService,
@@ -25,7 +28,8 @@ namespace ToDoApplication.Web.Controllers
             ITaskCategoryService categoryService,
             ITaskPriorityService priorityService,
             IToDoListService toDoListService,
-            IValidator<ToDoTaskDto> validator)
+            IValidator<ToDoTaskDto> validator,
+            UserManager<ApplicationUser> userManager)
         {
             this.toDoTaskService = toDoTaskService;
             this.statusService = statusService;
@@ -33,17 +37,48 @@ namespace ToDoApplication.Web.Controllers
             this.priorityService = priorityService;
             this.toDoListService = toDoListService;
             this.validator = validator;
+            this.userManager = userManager;
         }
 
-        [Route("ToDoList/{listId:int}/Tasks")]
-        public async Task<IActionResult> Index(int listId)
+        [Route("ToDoList/{listId:int}/Tasks/{hide?}")]
+        public async Task<IActionResult> Index(int listId, bool showAll)
         {
-            await this.toDoListService.GetByIdAsync(listId);
-            var listWithTasks = new ToDoListWithTasksVM
+            var list = await this.toDoListService.GetByIdAsync(listId);
+            var userId = this.userManager.GetUserId(this.HttpContext.User);
+
+            var listWithTasks = new ToDoListWithTasksVM();
+
+            listWithTasks = list.Name switch
             {
-                ListId = listId,
-                ToDoTasks = this.toDoTaskService.GetAll(listId)
+                "Important" => new ToDoListWithTasksVM
+                {
+                    ListId = listId,
+                    ShowAll = showAll,
+                    ToDoTasks = this.toDoListService.GetAllUserImportantTasks(userId)
+                },
+                "Daily" => new ToDoListWithTasksVM
+                {
+                    ListId = listId,
+                    ShowAll = showAll,
+                    ToDoTasks = this.toDoListService.GetAllUserDailyTasks(userId)
+                },
+                "Today" => new ToDoListWithTasksVM
+                {
+                    ListId = listId,
+                    ShowAll = showAll,
+                    ToDoTasks = this.toDoListService.GetAllUserTodaysTasks(userId)
+                },
+                _ => new ToDoListWithTasksVM
+                {
+                    ListId = listId,
+                    ShowAll = showAll,
+                    ToDoTasks = this.toDoTaskService.GetAll(listId)
+                },
             };
+            if (!showAll)
+            {
+                listWithTasks.ToDoTasks = listWithTasks.ToDoTasks.Where(x => !x.IsCompleted);
+            }
 
             foreach (var task in listWithTasks.ToDoTasks)
             {
@@ -78,20 +113,12 @@ namespace ToDoApplication.Web.Controllers
         {
             var categories = this.categoryService.GetAll();
             var priorities = this.priorityService.GetAll();
-            var createTaskViewModel = new CreateTaskViewModel
+            var createTaskViewModel = new CreateTaskVM
             {
                 ListId = listId
             };
 
-            foreach (var c in categories)
-            {
-                createTaskViewModel.CategoriesSelectedList.Categories.Add(new SelectListItem { Text = c.Name, Value = c.Id.ToString() });
-            }
-
-            foreach (var p in priorities)
-            {
-                createTaskViewModel.PrioritiesSelectedList.Priorities.Add(new SelectListItem { Text = p.Name, Value = p.Id.ToString() });
-            }
+            FillSetectedList.FillTaskSelectedLists(createTaskViewModel, categories, priorities, null);
 
             return this.View(createTaskViewModel);
         }
@@ -99,7 +126,7 @@ namespace ToDoApplication.Web.Controllers
         [Route("ToDoList/{listId:int}/Tasks/Add")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(int listId, CreateTaskViewModel task)
+        public async Task<IActionResult> Add(int listId, CreateTaskVM task)
         {
             var parsePriority = int.TryParse(task.PrioritiesSelectedList.SelectedPriority, out var priorityId);
             var parseCategory = int.TryParse(task.CategoriesSelectedList.SelectedCategory, out var categoryId);
@@ -127,9 +154,14 @@ namespace ToDoApplication.Web.Controllers
 
             if (!result.IsValid)
             {
+                var categories = this.categoryService.GetAll();
+                var priorities = this.priorityService.GetAll();
+
+                FillSetectedList.FillTaskSelectedLists(task, categories, priorities, null);
+
                 result.AddToModelState(this.ModelState);
 
-                return this.RedirectToAction("Add", new { listId = task.ListId });
+                return this.View("Add", task);
             }
 
             var taskId = await this.toDoTaskService.AddAsync(task.ToDoTask);
@@ -140,28 +172,12 @@ namespace ToDoApplication.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id, int listId)
         {
-            var createTaskViewModel = new CreateTaskViewModel();
+            var createTaskViewModel = new CreateTaskVM();
             var categories = this.categoryService.GetAll();
             var priorities = this.priorityService.GetAll();
             var statuses = this.statusService.GetAll();
 
-            foreach (var c in categories)
-            {
-                createTaskViewModel.CategoriesSelectedList.Categories.Add(
-                    new SelectListItem { Text = c.Name, Value = c.Id.ToString() });
-            }
-
-            foreach (var p in priorities)
-            {
-                createTaskViewModel.PrioritiesSelectedList.Priorities.Add(
-                    new SelectListItem { Text = p.Name, Value = p.Id.ToString() });
-            }
-
-            foreach (var s in statuses)
-            {
-                createTaskViewModel.StatusesSelectedList.Statuses.Add(
-                    new SelectListItem { Text = s.Name, Value = s.Id.ToString() });
-            }
+            FillSetectedList.FillTaskSelectedLists(createTaskViewModel, categories, priorities, statuses);
 
             createTaskViewModel.ToDoTask = await this.toDoTaskService.GetByIdAsync(id);
             createTaskViewModel.ListId = listId;
@@ -172,7 +188,7 @@ namespace ToDoApplication.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(CreateTaskViewModel task)
+        public async Task<IActionResult> Edit(CreateTaskVM task)
         {
             var parsePriority = int.TryParse(task.PrioritiesSelectedList.SelectedPriority, out var priorityId);
             var parseCategory = int.TryParse(task.CategoriesSelectedList.SelectedCategory, out var categoryId);
@@ -189,6 +205,7 @@ namespace ToDoApplication.Web.Controllers
             toDoTask.PriorityId = priorityId;
             toDoTask.CategoryId = categoryId;
             toDoTask.StatusId = statusId;
+            toDoTask.IsCompleted = this.statusService.GetByIdAsync(statusId).Result.Name == "Completed";
 
             toDoTask.List = null!;
             toDoTask.Priority = null!;

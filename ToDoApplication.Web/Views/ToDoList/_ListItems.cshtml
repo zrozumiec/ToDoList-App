@@ -47,10 +47,14 @@
                         @Html.DisplayFor(c => list.NumberOfTasks)
                     </td>
                     <td>
-                        @Html.ActionLink("Tasks", "Index", "ToDoTask", new {listId = list.Id}, null) |
-                        @Html.ActionLink("Edit", "Edit", new {id = list.Id}) |
-                        @Html.ActionLink("Details", "Details", new {id = list.Id}) |
-                        @Html.ActionLink("Delete", "Delete", new {id = list.Id}, new { onclick = "return confirm('Do you want to delete this row?');" }) |
+                        @Html.ActionLink("Tasks", "Index", "ToDoTask", new {listId = list.Id}, null)
+                        @if (list.Name != "Important" && list.Name != "Daily" && list.Name != "Today")
+                        {
+                            <text> | </text> @Html.ActionLink("Edit", "Edit", new {id = list.Id}) <text> | </text>
+                            @Html.ActionLink("Details", "Details", new { id = list.Id }) <text> | </text>
+                            @Html.ActionLink("Delete", "Delete", new { id = list.Id }, new { onclick = "return confirm('Do you want to delete this row?');" }) <text> | </text>
+                            @Html.ActionLink("Copy", "Copy", new {listId = list.Id}) <text> | </text>
+                        }
                     </td>
                 </tr>
             }

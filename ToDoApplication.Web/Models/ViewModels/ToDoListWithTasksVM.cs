@@ -6,6 +6,8 @@ namespace ToDoApplication.Web.Models.ViewModels
     {
         public int ListId { get; set; }
 
+        public bool ShowAll { get; set; }
+
         public IEnumerable<ToDoTaskDto> ToDoTasks { get; set; } = new List<ToDoTaskDto>();
     }
 }

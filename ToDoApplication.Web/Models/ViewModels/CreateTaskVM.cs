@@ -3,7 +3,7 @@ using ToDoApplication.Application.DTOs;
 
 namespace ToDoApplication.Web.Models.ViewModels
 {
-    public class CreateTaskViewModel
+    public class CreateTaskVM
     {
         public int ListId { get; set; }
 

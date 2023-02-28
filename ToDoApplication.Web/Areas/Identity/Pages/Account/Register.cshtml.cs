@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using ToDoApplication.Application.DTOs;
+using ToDoApplication.Application.Interfaces;
 using ToDoApplication.Domain.Models;
 
 #pragma warning disable SA1309 // Field names should not begin with underscore
@@ -18,6 +20,7 @@ using ToDoApplication.Domain.Models;
 #pragma warning disable SA1101 // Prefix local calls with this
 #pragma warning disable SA1623 // Property summary documentation should match accessors
 #pragma warning disable SA1201 // Elements should appear in the correct order
+#pragma warning disable IDE0037 // Use inferred member name
 
 namespace ToDoApplication.Web.Areas.Identity.Pages.Account
 {
@@ -30,6 +33,7 @@ namespace ToDoApplication.Web.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IToDoListService toDoListService;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
@@ -37,7 +41,8 @@ namespace ToDoApplication.Web.Areas.Identity.Pages.Account
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             RoleManager<IdentityRole> roleManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IToDoListService toDoListService)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -46,6 +51,7 @@ namespace ToDoApplication.Web.Areas.Identity.Pages.Account
             _roleManager = roleManager;
             _logger = logger;
             _emailSender = emailSender;
+            this.toDoListService = toDoListService;
         }
 
         /// <summary>
@@ -132,6 +138,9 @@ namespace ToDoApplication.Web.Areas.Identity.Pages.Account
                     }
 
                     var userId = await _userManager.GetUserIdAsync(user);
+
+                    await this.CreateDefaultLists(userId);
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
@@ -155,6 +164,7 @@ namespace ToDoApplication.Web.Areas.Identity.Pages.Account
                         return LocalRedirect(returnUrl);
                     }
                 }
+
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
@@ -187,6 +197,45 @@ namespace ToDoApplication.Web.Areas.Identity.Pages.Account
             }
 
             return (IUserEmailStore<ApplicationUser>)_userStore;
+        }
+
+        private async Task CreateDefaultLists(string userId)
+        {
+            var list = new ToDoListDto()
+            {
+                CreationDate = DateTimeOffset.Now,
+                IsHidden = false,
+                Name = "Important",
+                Description = "Important tasks!",
+                UserId = userId,
+                User = null!,
+            };
+
+            await toDoListService.AddAsync(list);
+
+            list = new ToDoListDto()
+            {
+                CreationDate = DateTimeOffset.Now,
+                IsHidden = false,
+                Name = "Daily",
+                Description = "Daily tasks!",
+                UserId = userId,
+                User = null!,
+            };
+
+            await toDoListService.AddAsync(list);
+
+            list = new ToDoListDto()
+            {
+                CreationDate = DateTimeOffset.Now,
+                IsHidden = false,
+                Name = "Today",
+                Description = "Today's tasks!",
+                UserId = userId,
+                User = null!,
+            };
+
+            await toDoListService.AddAsync(list);
         }
     }
 }

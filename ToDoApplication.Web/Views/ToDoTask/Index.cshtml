@@ -6,6 +6,11 @@
 
 <p>
     <a asp-action="Add" asp-route-listId="@Model.ListId">Create New</a>
+
+    <div class="form-check form-check-inline">
+        <label class="control-label">Show completed tasks</label>
+        <input class="form-check-input" type="checkbox" checked=@Model.ShowAll ? "checked" : "" onclick="window.location='@Url.Action("Index", "ToDoTask", new { showAll = !Model.ShowAll })'" />
+    </div>
 </p>
 
 <div>
@@ -97,6 +102,6 @@
 </div>
 
 <div>
-    <a asp-controller="ToDoList"  asp-action="Index">Back to List</a>
+    <a asp-controller="ToDoList" asp-action="Index">Back to List</a>
 </div>
 
