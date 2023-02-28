@@ -52,7 +52,7 @@ namespace ToDoApplication.Web.Controllers
         [HttpGet]
         public IActionResult Add(int taskId)
         {
-            TaskNotesDto taskNoteDto = new()
+            TaskNotesDto taskNoteDto = new ()
             {
                 TaskId = taskId
             };
