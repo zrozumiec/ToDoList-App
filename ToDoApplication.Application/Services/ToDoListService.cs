@@ -176,7 +176,7 @@ namespace ToDoApplication.Application.Services
         }
 
         /// <inheritdoc/>
-        public async Task Copy(int id)
+        public Task CopyAsync(int id)
         {
             var listInDataBase = this.GetByIdInternalAsync(id).Result;
 
@@ -185,6 +185,11 @@ namespace ToDoApplication.Application.Services
                 throw new ArgumentException("Given list id does not exist in database!", nameof(id));
             }
 
+            return this.CopyInternalAsync(id);
+        }
+
+        private async Task CopyInternalAsync(int id)
+        {
             await this.listRepository.CopyList(id);
         }
 

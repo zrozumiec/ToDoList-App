@@ -132,7 +132,7 @@ namespace ToDoApplication.Web.Controllers
         [Route("ToDoList/Copy/{listId:int}")]
         public async Task<IActionResult> Copy(int listId)
         {
-            await this.toDoListService.Copy(listId);
+            await this.toDoListService.CopyAsync(listId);
 
             return this.RedirectToAction("Index");
         }

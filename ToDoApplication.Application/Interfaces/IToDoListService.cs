@@ -89,6 +89,6 @@ namespace ToDoApplication.Application.Interfaces
         /// </summary>
         /// <param name="id">List id.</param>
         /// <returns>Copy of existing list.</returns>
-        Task Copy(int id);
+        Task CopyAsync(int id);
     }
 }

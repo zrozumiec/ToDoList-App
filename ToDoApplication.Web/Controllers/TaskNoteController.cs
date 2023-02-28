@@ -52,8 +52,10 @@ namespace ToDoApplication.Web.Controllers
         [HttpGet]
         public IActionResult Add(int taskId)
         {
-            TaskNotesDto taskNoteDto = new ();
-            taskNoteDto.TaskId = taskId;
+            TaskNotesDto taskNoteDto = new()
+            {
+                TaskId = taskId
+            };
             return this.View(taskNoteDto);
         }
 
