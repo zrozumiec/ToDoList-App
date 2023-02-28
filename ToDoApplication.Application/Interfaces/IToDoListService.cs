@@ -83,5 +83,12 @@ namespace ToDoApplication.Application.Interfaces
         /// <param name="userId">User id.</param>
         /// <returns>Tasks which reminder already occurs.</returns>
         Task<IEnumerable<ToDoTaskDto>> GetAllUserReminderTasksAsync(string userId);
+
+        /// <summary>
+        /// Copy existing list.
+        /// </summary>
+        /// <param name="id">List id.</param>
+        /// <returns>Copy of existing list.</returns>
+        Task Copy(int id);
     }
 }

@@ -175,6 +175,19 @@ namespace ToDoApplication.Application.Services
             return this.taskService.GetTaskForToday(userList);
         }
 
+        /// <inheritdoc/>
+        public async Task Copy(int id)
+        {
+            var listInDataBase = this.GetByIdInternalAsync(id).Result;
+
+            if (listInDataBase is null)
+            {
+                throw new ArgumentException("Given list id does not exist in database!", nameof(id));
+            }
+
+            await this.listRepository.CopyList(id);
+        }
+
         /// <summary>
         /// Async method to add item.
         /// </summary>

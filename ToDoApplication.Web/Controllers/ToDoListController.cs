@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ToDoApplication.Application.DTOs;
 using ToDoApplication.Application.Interfaces;
-using ToDoApplication.Domain.Interfaces;
 using ToDoApplication.Domain.Models;
 using ToDoApplication.Web.Models;
 using ToDoApplication.Web.Models.ViewModels;
@@ -19,12 +18,10 @@ namespace ToDoApplication.Web.Controllers
         private readonly IToDoTaskService toDoTaskService;
         private readonly IValidator<ToDoListDto> validator;
         private readonly UserManager<ApplicationUser> userManager;
-        private readonly IToDoListRepository toDoListRepository;
 
         public ToDoListController(
             IToDoListService toDoListService,
             IToDoTaskService toDoTaskService,
-            IToDoListRepository toDoListRepository,
             IValidator<ToDoListDto> validator,
             UserManager<ApplicationUser> userManager)
         {
@@ -32,7 +29,6 @@ namespace ToDoApplication.Web.Controllers
             this.toDoTaskService = toDoTaskService;
             this.validator = validator;
             this.userManager = userManager;
-            this.toDoListRepository = toDoListRepository;
         }
 
         [Route("ToDoList/{showAll?}")]
@@ -136,7 +132,7 @@ namespace ToDoApplication.Web.Controllers
         [Route("ToDoList/Copy/{listId:int}")]
         public async Task<IActionResult> Copy(int listId)
         {
-            await this.toDoListRepository.CopyList(listId);
+            await this.toDoListService.Copy(listId);
 
             return this.RedirectToAction("Index");
         }
