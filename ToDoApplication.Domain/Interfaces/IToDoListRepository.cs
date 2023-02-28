@@ -29,5 +29,12 @@ namespace ToDoApplication.Domain.Interfaces
         /// <param name="name">List name.</param>
         /// <returns>Return list specified by name.</returns>
         Task<ToDoList> CheckIfExistInDataBaseWithSameNameAsync(string name);
+
+        /// <summary>
+        /// Copy existing list.
+        /// </summary>
+        /// <param name="listId">List id.</param>
+        /// <returns>Copy of existing list.</returns>
+        Task CopyList(int listId);
     }
 }

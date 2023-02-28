@@ -47,5 +47,44 @@ namespace ToDoApplication.Infrastructure.Repositories
         {
             return await this.DbSet.FirstOrDefaultAsync(x => x.Description.ToLower() == name.ToLower());
         }
+
+        /// <inheritdoc/>
+        public async Task CopyList(int listId)
+        {
+            var list = this.DbSet
+                    .AsNoTracking()
+                    .Include(x => x.User)
+                    .Include(x => x.Tasks).ThenInclude(x => x.Category)
+                    .Include(x => x.Tasks).ThenInclude(x => x.Status)
+                    .Include(x => x.Tasks).ThenInclude(x => x.Priority)
+                    .FirstOrDefault(x => x.Id == listId);
+
+            if (list == null)
+            {
+                return;
+            }
+
+            list.Id = 0;
+            list.Tile += "_Copy";
+            list.Description += "_Copy";
+            list.User = null;
+
+            foreach (var task in list.Tasks)
+            {
+                task.Id = 0;
+                task.Category = null;
+                task.Priority = null;
+                task.Status = null;
+            }
+
+            this.DbSet.Add(list);
+            await this.SaveAsync();
+        }
+
+        /// <inheritdoc/>
+        public override IEnumerable<ToDoList> GetAll()
+        {
+            return this.DbSet.Include(x => x.Tasks);
+        }
     }
 }
