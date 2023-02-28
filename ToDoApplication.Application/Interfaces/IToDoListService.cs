@@ -47,6 +47,41 @@ namespace ToDoApplication.Application.Interfaces
         /// <returns>All ToDoList.</returns>
         IEnumerable<ToDoListDto> GetAll();
 
+        /// <summary>
+        /// Change list visibility.
+        /// </summary>
+        /// <param name="id">List id.</param>
+        /// <param name="visibility">Visibility.</param>
+        /// <returns>Returns updated list id.</returns>
+        /// <exception cref="ArgumentException">Throws when list does not exist in database.</exception>
         Task<int> ChangeVisibility(int id, bool visibility);
+
+        /// <summary>
+        /// Gets all user important tasks.
+        /// </summary>
+        /// <param name="userId">User id.</param>
+        /// <returns>All important tasks.</returns>
+        IEnumerable<ToDoTaskDto> GetAllUserImportantTasks(string userId);
+
+        /// <summary>
+        /// Gets all user task to be done every day.
+        /// </summary>
+        /// <param name="userId">User id.</param>
+        /// <returns>All tasks for every day.</returns>
+        IEnumerable<ToDoTaskDto> GetAllUserDailyTasks(string userId);
+
+        /// <summary>
+        /// Gets all user task to be done today.
+        /// </summary>
+        /// <param name="userId">User id.</param>
+        /// <returns>All tasks for today.</returns>
+        IEnumerable<ToDoTaskDto> GetAllUserTodaysTasks(string userId);
+
+        /// <summary>
+        /// Gets all user tasks which reminder already occurs.
+        /// </summary>
+        /// <param name="userId">User id.</param>
+        /// <returns>Tasks which reminder already occurs.</returns>
+        Task<IEnumerable<ToDoTaskDto>> GetAllUserReminderTasksAsync(string userId);
     }
 }
