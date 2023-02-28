@@ -162,11 +162,11 @@ namespace ToDoApplication.Application.Services
         }
 
         /// <inheritdoc/>
-        public IEnumerable<ToDoTaskDto> GetTaskForToday(string userId, IEnumerable<ToDoListDto> userLists)
+        public IEnumerable<ToDoTaskDto> GetTaskForToday(IEnumerable<ToDoListDto> userLists)
         {
             var dateNow = DateTimeOffset.Now;
 
-            List<ToDoTaskDto> tasksForToday = new List<ToDoTaskDto>();
+            List<ToDoTaskDto> tasksForToday = new ();
 
             foreach (var list in userLists)
             {
