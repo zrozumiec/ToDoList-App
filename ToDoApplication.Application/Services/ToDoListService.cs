@@ -12,17 +12,23 @@ namespace ToDoApplication.Application.Services
     public class ToDoListService : IToDoListService
     {
         private readonly IMapper mapper;
-        private readonly IToDoListRepository repository;
+        private readonly IToDoListRepository listRepository;
+        private readonly IToDoTaskService taskService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ToDoListService"/> class.
         /// </summary>
         /// <param name="mapper">ToDoList mapper.</param>
-        /// <param name="repository">ToDoList repository.</param>
-        public ToDoListService(IMapper mapper, IToDoListRepository repository)
+        /// <param name="listRepository">ToDoList repository.</param>
+        /// <param name="taskService">ToDoTask service.</param>
+        public ToDoListService(
+            IMapper mapper,
+            IToDoListRepository listRepository,
+            IToDoTaskService taskService)
         {
             this.mapper = mapper;
-            this.repository = repository;
+            this.listRepository = listRepository;
+            this.taskService = taskService;
         }
 
         /// <inheritdoc/>
@@ -79,7 +85,7 @@ namespace ToDoApplication.Application.Services
                 throw new ArgumentException("List with given id does not exist in database.", nameof(id));
             }
 
-            var itemInDatabaseWithSameName = this.repository.CheckIfExistInDataBaseWithSameNameAsync(toDoListDto.Name).Result;
+            var itemInDatabaseWithSameName = this.listRepository.CheckIfExistInDataBaseWithSameNameAsync(toDoListDto.Name).Result;
 
             if (itemInDatabaseWithSameName is not null && itemInDatabaseWithSameName.Tile != itemInDatabase.Name)
             {
@@ -105,9 +111,68 @@ namespace ToDoApplication.Application.Services
         /// <inheritdoc/>
         public IEnumerable<ToDoListDto> GetAll()
         {
-            var items = this.repository.GetAll();
+            var items = this.listRepository.GetAll();
 
             return this.mapper.Map<IEnumerable<ToDoListDto>>(items);
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<ToDoTaskDto> GetAllUserImportantTasks(string userId)
+        {
+            var userList = this.GetAllUserLists(userId);
+
+            List<ToDoTaskDto> userTasks = new ();
+
+            foreach (var list in userList)
+            {
+                userTasks.AddRange(list.Tasks.Where(x => x.Important));
+            }
+
+            return this.mapper.Map<IEnumerable<ToDoTaskDto>>(userTasks);
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<ToDoTaskDto> GetAllUserDailyTasks(string userId)
+        {
+            var userList = this.GetAllUserLists(userId);
+
+            List<ToDoTaskDto> userTasks = new ();
+
+            foreach (var list in userList)
+            {
+                userTasks.AddRange(list.Tasks.Where(x => x.Daily));
+            }
+
+            return this.mapper.Map<IEnumerable<ToDoTaskDto>>(userTasks);
+        }
+
+        /// <inheritdoc/>
+        public async Task<IEnumerable<ToDoTaskDto>> GetAllUserReminderTasksAsync(string userId)
+        {
+            var userList = this.GetAllUserLists(userId);
+
+            List<ToDoTaskDto> userTasks = new ();
+
+            foreach (var list in userList)
+            {
+                foreach (var task in list.Tasks)
+                {
+                    if (await this.taskService.CheckIfReminderTimeOccursAsync(task.Id))
+                    {
+                        userTasks.Add(task);
+                    }
+                }
+            }
+
+            return this.mapper.Map<IEnumerable<ToDoTaskDto>>(userTasks);
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<ToDoTaskDto> GetAllUserTodaysTasks(string userId)
+        {
+            var userList = this.GetAllUserLists(userId);
+
+            return this.taskService.GetTaskForToday(userList);
         }
 
         /// <summary>
@@ -119,7 +184,7 @@ namespace ToDoApplication.Application.Services
         {
             var item = this.mapper.Map<ToDoList>(itemDto);
 
-            return await this.repository.AddAsync(item);
+            return await this.listRepository.AddAsync(item);
         }
 
         /// <summary>
@@ -129,7 +194,7 @@ namespace ToDoApplication.Application.Services
         /// <returns>Deleted item id.</returns>
         private async Task<int> DeleteInternalAsync(int id)
         {
-            return await this.repository.DeleteAsync(id);
+            return await this.listRepository.DeleteAsync(id);
         }
 
         /// <summary>
@@ -139,7 +204,7 @@ namespace ToDoApplication.Application.Services
         /// <returns>Item with specified id.</returns>
         private async Task<ToDoListDto> GetByIdInternalAsync(int id)
         {
-            var itemInDatabase = await this.repository.GetByIdAsync(id);
+            var itemInDatabase = await this.listRepository.GetByIdAsync(id);
 
             return this.mapper.Map<ToDoListDto>(itemInDatabase);
         }
@@ -154,7 +219,21 @@ namespace ToDoApplication.Application.Services
         {
             var item = this.mapper.Map<ToDoList>(itemDto);
 
-            return await this.repository.UpdateAsync(id, item);
+            return await this.listRepository.UpdateAsync(id, item);
+        }
+
+        /// <summary>
+        /// Gets all user lists.
+        /// </summary>
+        /// <param name="userId">User id.</param>
+        /// <returns>User lists.</returns>
+        private IEnumerable<ToDoListDto> GetAllUserLists(string userId)
+        {
+            var userList = this.listRepository.GetAll()
+                    .Where(x => x.UserId == userId)
+                    .Where(x => x.Tile != "Important" && x.Tile != "Today" && x.Tile != "Daily");
+
+            return this.mapper.Map<IEnumerable<ToDoListDto>>(userList);
         }
     }
 }
