@@ -162,12 +162,18 @@ namespace ToDoApplication.Application.Services
         }
 
         /// <inheritdoc/>
-        public IEnumerable<ToDoTaskDto> GetTaskForToday()
+        public IEnumerable<ToDoTaskDto> GetTaskForToday(string userId, IEnumerable<ToDoListDto> userLists)
         {
             var dateNow = DateTimeOffset.Now;
-            var tasksForToday = this.repository.GetAll().Where(x => CheckIfDueDateOccurs(dateNow, x.DueDate));
 
-            return this.mapper.Map<IEnumerable<ToDoTaskDto>>(tasksForToday);
+            List<ToDoTaskDto> tasksForToday = new List<ToDoTaskDto>();
+
+            foreach (var list in userLists)
+            {
+                tasksForToday.AddRange(list.Tasks.Where(x => CheckIfDueDateOccurs(dateNow, x.DueDate)));
+            }
+
+            return tasksForToday;
         }
 
         /// <inheritdoc/>

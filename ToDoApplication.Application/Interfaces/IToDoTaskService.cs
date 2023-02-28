@@ -85,11 +85,8 @@ namespace ToDoApplication.Application.Interfaces
         /// <returns>All uncompleted tasks.</returns>
         IEnumerable<ToDoTaskDto> GetUncompletedTasks();
 
-        /// <summary>
-        /// Returns all tasks which should be done today.
-        /// </summary>
-        /// <returns>Tasks which should be done today.</returns>
-        IEnumerable<ToDoTaskDto> GetTaskForToday();
+
+        IEnumerable<ToDoTaskDto> GetTaskForToday(string userId, IEnumerable<ToDoListDto> userLists);
 
         /// <summary>
         /// Turn on/off reminder for task.
